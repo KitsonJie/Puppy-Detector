@@ -6,8 +6,8 @@
     <title>ScholaraPuppy | Academic AI Similarity &amp; Style Analyzer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web" crossorigin="anonymous"></script>
     <script>
         tailwind.config = {
@@ -16,15 +16,15 @@
                     fontFamily: {
                         sans: ['Quicksand', 'Inter', 'sans-serif'],
                         serif: ['Newsreader', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        mono: ['JetBrains Mono', 'monospace']
                     },
                     colors: {
                         cute: {
-                            pink: '#c86d81',       /* Muted dusty rose */
-                            blush: '#f8e8ec',      /* Soft blush */
-                            cream: '#fdf9eb',      /* Warm light yellow / cream */
-                            yellowSoft: '#fcf1c8', /* Soft pastel yellow */
-                            cocoa: '#3b282e',      /* Dark warm cocoa text for high contrast */
+                            pink: '#c86d81',
+                            blush: '#f8e8ec',
+                            cream: '#fdf9eb',
+                            yellowSoft: '#fcf1c8',
+                            cocoa: '#3b282e',
                             pinkHover: '#b2596d',
                             creamBorder: '#ead9b5',
                             blushBorder: '#ebd3d8'
@@ -32,68 +32,9 @@
                     }
                 }
             }
-        }
+        };
     </script>
-    <style>
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #fdf9eb; }
-        ::-webkit-scrollbar-thumb { background: #c86d81; border-radius: 9999px; opacity: 0.7; }
-        ::-webkit-scrollbar-thumb:hover { background: #b2596d; }
-
-        body {
-            background-color: #fcf7f5;
-            background-image: radial-gradient(#f0dce0 1.25px, transparent 1.25px);
-            background-size: 28px 28px;
-            color: #3b282e;
-        }
-
-        .highlight-span {
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border-radius: 0.35rem;
-            padding: 0.08rem 0.28rem;
-            margin: 0 -0.08rem;
-        }
-        .highlight-high {
-            background-color: #f9dfe4;
-            border-bottom: 2px solid #c86d81;
-            color: #4a232c;
-        }
-        .highlight-high:hover, .highlight-high.active-span {
-            background-color: #f3cbd3;
-            box-shadow: 0 0 0 2px #c86d81;
-        }
-        .highlight-medium {
-            background-color: #fcf1c8;
-            border-bottom: 2px solid #d49e3d;
-            color: #4d3812;
-        }
-        .highlight-medium:hover, .highlight-medium.active-span {
-            background-color: #f8e4a0;
-            box-shadow: 0 0 0 2px #d49e3d;
-        }
-        .highlight-low {
-            background-color: #efe9fa;
-            border-bottom: 2px solid #8c6bb1;
-            color: #3c2b52;
-        }
-        .highlight-low:hover, .highlight-low.active-span {
-            background-color: #e2d6f5;
-            box-shadow: 0 0 0 2px #8c6bb1;
-        }
-
-        .gauge-circle {
-            transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-4px); }
-        }
-        .puppy-float { animation: float-slow 3s ease-in-out infinite; }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="font-sans antialiased min-h-screen flex flex-col">
 
@@ -102,7 +43,7 @@
 
     <!-- Header -->
     <header class="bg-white/95 backdrop-blur-md border-b-2 border-cute-blushBorder sticky top-0 z-40 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
+        <div class="max-w-6xl mx-auto px-4 min-h-16 py-2 flex flex-wrap items-center justify-between gap-2">
             <!-- Brand & Spaniel Puppy -->
             <div class="flex items-center gap-3">
                 <div class="w-11 h-11 rounded-2xl bg-cute-blush border-2 border-cute-pink flex items-center justify-center shadow-sm puppy-float shrink-0" aria-hidden="true">
@@ -127,16 +68,22 @@
                 </div>
             </div>
 
-            <!-- Page Navigation -->
-            <div class="flex items-center gap-2">
+            <!-- In-Page Navigation & Distinct Language Switcher -->
+            <div class="flex flex-wrap items-center gap-2.5">
                 <nav aria-label="Main Navigation" class="flex items-center bg-cute-blush p-1 rounded-xl border border-cute-blushBorder">
-                    <button id="navScannerBtn" onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center gap-1.5">
+                    <button type="button" id="navScannerBtn" onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center gap-1.5">
                         <i class="ph-fill ph-paw-print text-cute-pink"></i> AI Scanner
                     </button>
-                    <button id="navRefBtn" onclick="switchPage('reference')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center gap-1.5">
+                    <button type="button" id="navRefBtn" onclick="switchPage('reference')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center gap-1.5">
                         <i class="ph-fill ph-book-open text-cute-pink"></i> Reference &amp; Logic
                     </button>
                 </nav>
+
+                <a href="./zh.html" class="lang-switch-btn" title="Switch to the Chinese Detector">
+                    <i class="ph-bold ph-translate text-sm text-[#a6741e]"></i>
+                    <span>Try the Chinese Detector</span>
+                    <i class="ph-bold ph-arrow-up-right text-[11px] opacity-75"></i>
+                </a>
             </div>
         </div>
     </header>
@@ -147,10 +94,9 @@
         <!-- ================= PAGE 1: SCANNER WORKSPACE ================= -->
         <section id="pageScanner" class="space-y-6">
 
-            <!-- Top Memorize Bar (Last 5 Uploaded Texts) -->
+            <!-- Top Memorize Bar (Last 5 English Scans) -->
             <div class="bg-white px-4 py-2.5 rounded-2xl border-2 border-cute-blushBorder shadow-sm flex items-center justify-between gap-3 overflow-x-auto">
                 <div class="flex items-center gap-2 shrink-0 bg-cute-cream border border-cute-creamBorder px-3 py-1 rounded-xl">
-                    <!-- Cute Pug SVG -->
                     <svg viewBox="0 0 100 100" class="w-5 h-5 shrink-0" aria-hidden="true">
                         <path d="M18 28 C10 26 10 46 20 48 Z" fill="#3b282e" stroke="#3b282e" stroke-width="4"></path>
                         <path d="M82 28 C90 26 90 46 80 48 Z" fill="#3b282e" stroke="#3b282e" stroke-width="4"></path>
@@ -162,9 +108,9 @@
                     <span class="text-xs font-bold text-cute-cocoa">Recent 5 Scans:</span>
                 </div>
                 <div id="recentHistoryBar" class="flex items-center gap-2 flex-grow overflow-x-auto py-0.5">
-                    <span class="text-xs text-cute-cocoa/60 italic px-2">No saved scans yet — paste your text below and click Scan Text!</span>
+                    <span class="text-xs text-cute-cocoa/60 italic px-2">No saved scans yet — paste your text below and click Scan Text.</span>
                 </div>
-                <button onclick="clearAllMemory()" class="text-[11px] font-bold text-cute-pink hover:underline shrink-0 px-2">Clear</button>
+                <button type="button" onclick="clearAllMemory()" class="text-[11px] font-bold text-cute-pink hover:underline shrink-0 px-2">Clear</button>
             </div>
 
             <!-- Main Two-Column Grid -->
@@ -175,60 +121,43 @@
                     <!-- Top Toolbar -->
                     <div class="px-5 py-3 bg-cute-blush/60 border-b border-cute-blushBorder flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center space-x-1 bg-cute-blush p-1 rounded-xl border border-cute-blushBorder">
-                            <button id="tabEditBtn" onclick="switchEditorMode('edit')" class="px-3 py-1 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm">
+                            <button type="button" id="tabEditBtn" onclick="switchEditorMode('edit')" class="px-3 py-1 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm">
                                 1. Paste / Edit Text
                             </button>
-                            <button id="tabHighlightBtn" onclick="switchEditorMode('highlight')" class="px-3 py-1 rounded-lg text-xs font-bold transition text-cute-cocoa/65 hover:text-cute-cocoa">
+                            <button type="button" id="tabHighlightBtn" onclick="switchEditorMode('highlight')" class="px-3 py-1 rounded-lg text-xs font-bold transition text-cute-cocoa/65 hover:text-cute-cocoa">
                                 2. Highlighted Problems
                             </button>
                         </div>
 
                         <div class="flex flex-wrap items-center gap-1.5">
-                            <button onclick="loadSampleAIDraft()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-blush text-cute-cocoa border border-cute-blushBorder text-xs font-bold transition flex items-center gap-1" title="Load an English AI-slop sample">
-                                <i class="ph-bold ph-robot text-cute-pink"></i> EN AI
-                            </button>
-                            <button onclick="loadSampleZhAIDraft()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-blush text-cute-cocoa border border-cute-blushBorder text-xs font-bold transition flex items-center gap-1" title="載入繁體中文 AI 腔測試範例">
-                                <i class="ph-bold ph-translate text-cute-pink"></i> 中文 AI
-                            </button>
-                            <button onclick="loadSampleSciLabReport()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-cream text-cute-cocoa border border-cute-creamBorder text-xs font-bold transition flex items-center gap-1" title="Load a human-written Biology/Chemistry lab report to test the Jargon Whitelist">
-                                <i class="ph-bold ph-flask text-[#2d7a5b]"></i> Sci Lab
-                            </button>
-                            <button onclick="clearEditorText()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-blush text-cute-cocoa/75 hover:text-cute-cocoa border border-cute-blushBorder text-xs font-bold transition flex items-center gap-1" title="Clear text">
+                            <button type="button" onclick="clearEditorText()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-blush text-cute-cocoa/75 hover:text-cute-cocoa border border-cute-blushBorder text-xs font-bold transition flex items-center gap-1" title="Clear text">
                                 <i class="ph-bold ph-trash"></i>
                             </button>
-                            <button onclick="copyPassageText()" class="px-2.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft text-cute-cocoa border border-cute-creamBorder text-xs font-bold transition flex items-center gap-1">
+                            <button type="button" onclick="copyPassageText()" class="px-2.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft text-cute-cocoa border border-cute-creamBorder text-xs font-bold transition flex items-center gap-1">
                                 <i class="ph-bold ph-copy"></i> Copy
                             </button>
-                            <button id="scanTextBtn" onclick="runManualScan()" class="px-3.5 py-1.5 rounded-xl bg-cute-pink hover:bg-cute-pinkHover text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
-                                <i class="ph-fill ph-magnifying-glass"></i> Scan Text
+                            <button type="button" id="scanTextBtn" onclick="runManualScan()" class="px-3.5 py-1.5 rounded-xl bg-cute-pink hover:bg-cute-pinkHover text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                                <i class="ph-fill ph-magnifying-glass"></i> <span>Scan Text</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Mode 1: Direct Paste Input -->
                     <div id="rawEditorContainer" class="p-5 bg-[#fffdf9]">
-                        <label for="passageInput" class="sr-only">Paste your academic passage here</label>
-                        <textarea id="passageInput" rows="13" class="w-full p-4 rounded-xl border-2 border-cute-blushBorder focus:border-cute-pink focus:ring-4 focus:ring-cute-blush outline-none font-serif text-lg leading-relaxed text-cute-cocoa resize-y bg-white placeholder:text-cute-pink/60" placeholder="Paste your English or Chinese (繁/簡) essay or scientific lab report here and click 'Scan Text'... 🐾"></textarea>
-                        <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-cute-cocoa/80 font-semibold">
-                            <div class="flex items-center gap-2">
-                                <!-- Cute Corgi SVG -->
-                                <svg viewBox="0 0 100 100" class="w-6 h-6 shrink-0" aria-hidden="true">
-                                    <path d="M22 38 L14 14 L38 26 Z" fill="#e59866" stroke="#3b282e" stroke-width="4"></path>
-                                    <path d="M78 38 L86 14 L62 26 Z" fill="#e59866" stroke="#3b282e" stroke-width="4"></path>
-                                    <rect x="22" y="26" width="56" height="50" rx="24" fill="#f8c471" stroke="#3b282e" stroke-width="4"></rect>
-                                    <path d="M46 26 L54 26 L56 52 C64 52 68 62 60 72 L40 72 C32 62 36 52 44 52 Z" fill="#ffffff"></path>
-                                    <circle cx="37" cy="46" r="4" fill="#3b282e"></circle>
-                                    <circle cx="63" cy="46" r="4" fill="#3b282e"></circle>
-                                    <ellipse cx="50" cy="54" rx="4" ry="3" fill="#3b282e"></ellipse>
-                                </svg>
-                                <span>Bilingual EN/中文 Engine + STEM Whitelist Active!</span>
-                            </div>
-                            <div class="flex flex-wrap items-center gap-1.5">
-                                <span id="langBadge" class="font-mono text-[11px] bg-cute-pink/15 text-cute-pink font-bold px-2 py-0.5 rounded-full border border-cute-blushBorder">AUTO</span>
-                                <span id="paraCountBadge" class="font-mono text-[11px] bg-cute-blush/40 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 paras</span>
-                                <span id="sentenceCountBadge" class="font-mono text-[11px] bg-cute-blush/60 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 sentences</span>
-                                <span id="wordCountBadge" class="font-mono text-[11px] bg-cute-cream px-2.5 py-0.5 rounded-full border border-cute-creamBorder">0 units</span>
-                            </div>
+                        <label for="passageInput" class="sr-only">Paste your text here</label>
+                        <textarea id="passageInput" rows="13" class="w-full p-4 rounded-xl border-2 border-cute-blushBorder focus:border-cute-pink focus:ring-4 focus:ring-cute-blush outline-none font-serif text-lg leading-relaxed text-cute-cocoa resize-y bg-white placeholder:text-cute-pink/60" placeholder="Paste your text here and click &quot;Scan Text&quot;..."></textarea>
+
+                        <!-- Basic Stats Only -->
+                        <div class="mt-3 flex flex-wrap items-center justify-end gap-1.5 text-xs text-cute-cocoa/80 font-semibold">
+                            <span id="paraCountBadge" class="font-mono text-[11px] bg-cute-blush/40 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 paras</span>
+                            <span id="sentenceCountBadge" class="font-mono text-[11px] bg-cute-blush/60 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 sentences</span>
+                            <span id="wordCountBadge" class="font-mono text-[11px] bg-cute-cream px-2.5 py-0.5 rounded-full border border-cute-creamBorder">0 words</span>
+                        </div>
+
+                        <!-- Sample Loader Bar Directly Below Input -->
+                        <div class="sample-loader-bar">
+                            <span class="text-xs font-bold text-cute-cocoa/75 mr-1">Load example:</span>
+                            <div id="sampleButtonsContainer" class="flex flex-wrap items-center gap-2"></div>
                         </div>
                     </div>
 
@@ -236,39 +165,42 @@
                     <div id="annotatedContainer" class="hidden p-6 min-h-[340px] bg-white flex flex-col justify-between">
                         <div>
                             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-cute-blushBorder text-xs">
-                                <span class="font-bold text-cute-cocoa">Click any highlighted phrase or sentence to inspect and fix it:</span>
+                                <span class="font-bold text-cute-cocoa">Click any highlighted phrase or sentence to inspect and revise:</span>
                                 <div class="flex flex-wrap items-center gap-2.5">
-                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#f9dfe4] border border-cute-pink"></span> High (Sev 4–5)</span>
-                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-cute-yellowSoft border border-[#d49e3d]"></span> Med (Sev 3)</span>
-                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#efe9fa] border border-[#8c6bb1]"></span> Polish (Sev 2)</span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#f9dfe4] border border-cute-pink"></span> High</span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-cute-yellowSoft border border-[#d49e3d]"></span> Med</span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#efe9fa] border border-[#8c6bb1]"></span> Polish</span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#e6f4f7] border border-[#3e8ca3]"></span> Flow</span>
                                 </div>
                             </div>
+
                             <!-- Whitelisted STEM Jargon Banner -->
                             <div id="whitelistProtectedBanner" class="hidden mb-4 p-3 rounded-xl bg-[#f3faf6] border border-[#b7e0cc] text-[#225741] text-xs flex items-start gap-2.5">
                                 <i class="ph-fill ph-shield-check text-lg shrink-0 mt-0.5 text-[#2d7a5b]"></i>
                                 <div>
-                                    <span class="font-bold">Scientific &amp; Technical Jargon Whitelist Active:</span>
-                                    <span id="whitelistTermsList" class="text-[#1e4d39]/90"></span>
+                                    <span class="font-bold">STEM Whitelist Active:</span>
+                                    <span id="whitelistTermsList" class="text-[#1e4d39]/90 ml-1"></span>
                                 </div>
                             </div>
+
                             <div id="annotatedTextBody" class="font-serif text-lg leading-loose text-cute-cocoa select-text"></div>
                         </div>
 
-                        <div class="mt-6 pt-3 border-t border-cute-blushBorder flex items-center justify-between">
-                            <button onclick="switchEditorMode('edit')" class="text-xs font-bold text-cute-pink hover:underline flex items-center gap-1">
+                        <div class="mt-6 pt-3 border-t border-cute-blushBorder flex flex-wrap items-center justify-between gap-2">
+                            <button type="button" onclick="switchEditorMode('edit')" class="text-xs font-bold text-cute-pink hover:underline flex items-center gap-1">
                                 <i class="ph-bold ph-pencil-simple"></i> Edit Raw Text
                             </button>
-                            <button id="fixAllBtn" onclick="applyAllFixes()" class="px-3.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft border border-cute-creamBorder text-cute-cocoa text-xs font-bold transition flex items-center gap-1.5">
-                                <i class="ph-fill ph-magic-wand text-cute-pink"></i> Apply All Suggested Fixes
+                            <button type="button" id="fixAllBtn" onclick="applyAllSafeFixes()" class="hidden px-3.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft border border-cute-creamBorder text-cute-cocoa text-xs font-bold transition flex items-center gap-1.5">
+                                <i class="ph-fill ph-magic-wand text-cute-pink"></i> <span>Apply All Safe Fixes</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT: Similarity Percentage, 5-Pillar Breakdown & Direct Problem Inspector (5 cols) -->
+                <!-- RIGHT: Score Card, 4 Dimensions, Collapsible 5-Pillar & Unified Problem Inspector (5 cols) -->
                 <div class="lg:col-span-5 space-y-4">
 
-                    <!-- Percentage Score Card + 5 Mathematical Pillars -->
+                    <!-- Score Card -->
                     <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-5 shadow-sm space-y-4">
                         <div class="flex items-center justify-between gap-4">
                             <div class="space-y-1.5">
@@ -276,10 +208,7 @@
                                     Ready to Scan
                                 </span>
                                 <h2 class="text-base font-bold text-cute-cocoa">Weighted AI Probability</h2>
-                                <p id="scoreSubtext" class="text-xs text-cute-cocoa/75 leading-relaxed">
-                                    Combines 5 mathematical pillars with 20+ bilingual EN/中文 AI-slop rules &amp; STEM whitelist protection.
-                                </p>
-                                <button onclick="switchPage('reference')" class="text-[11px] font-bold text-cute-pink hover:underline inline-flex items-center gap-1 pt-0.5">
+                                <button type="button" onclick="switchPage('reference')" class="text-[11px] font-bold text-cute-pink hover:underline inline-flex items-center gap-1 pt-0.5">
                                     How is this calculated? <i class="ph-bold ph-arrow-right"></i>
                                 </button>
                             </div>
@@ -297,7 +226,7 @@
                             </div>
                         </div>
 
-                        <!-- 4 Writing Quality Dimensions (Authenticity, Density, Directness, Trust) -->
+                        <!-- 4 Writing Dimensions (Primary Display) -->
                         <div class="pt-3 border-t border-cute-blushBorder space-y-2">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] uppercase font-bold text-cute-pink tracking-wider">4 Writing Dimensions (Human Health)</span>
@@ -323,139 +252,98 @@
                             </div>
                         </div>
 
-                        <!-- 5-Pillar Mathematical Sub-Scores Breakdown -->
-                        <div class="pt-3 border-t border-cute-blushBorder space-y-2.5 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] uppercase font-bold text-cute-pink tracking-wider">5-Pillar Mathematical Sub-Scores</span>
-                                <span id="grammarApiStatus" class="text-[10px] font-mono text-cute-cocoa/60">Awaiting scan</span>
-                            </div>
+                        <!-- Collapsible 5-Pillar Breakdown (Collapsed by Default) -->
+                        <div class="pt-2 border-t border-cute-blushBorder space-y-2.5">
+                            <button type="button" id="pillarToggleBtn" onclick="togglePillarBreakdown()" aria-expanded="false" aria-controls="pillarBreakdownPanel" class="pillar-accordion-btn">
+                                <span class="flex items-center gap-1.5">
+                                    <i class="ph-fill ph-sliders-horizontal text-cute-pink"></i>
+                                    <span id="pillarToggleText">Show 5-Pillar Breakdown</span>
+                                </span>
+                                <i class="ph-bold ph-caret-down pillar-chevron text-cute-pink"></i>
+                            </button>
 
-                            <!-- Pillar 1: Burstiness -->
-                            <div class="space-y-1">
-                                <div class="flex justify-between text-[11px]">
-                                    <span class="font-bold text-cute-cocoa">1. Burstiness (Sent. Length SD)</span>
-                                    <span id="p1Detail" class="font-mono text-cute-cocoa/80">SD: — | 0/100</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
-                                    <div id="p1Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
-                                </div>
-                            </div>
+                            <div id="pillarBreakdownPanel" class="hidden space-y-1.5 pt-1 text-xs">
+                                <p class="text-[10px] text-cute-cocoa/55 px-1">Higher % indicates stronger AI signal. Hover any row for math details.</p>
 
-                            <!-- Pillar 2: Cliche & Syntax Penalty -->
-                            <div class="space-y-1">
-                                <div class="flex justify-between text-[11px]">
-                                    <span class="font-bold text-cute-cocoa">2. Bilingual Cliché &amp; Syntax Rules</span>
-                                    <span id="p2Detail" class="font-mono text-cute-cocoa/80">0 hits | 0/100</span>
+                                <div id="p1Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="Run a scan to view mathematical metrics">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa">1. Sentence Flow</span>
+                                        <span id="p1Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p1Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
-                                    <div id="p2Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
-                                </div>
-                            </div>
 
-                            <!-- Pillar 3: Jargon-Filtered Glue Predictability -->
-                            <div class="space-y-1">
-                                <div class="flex justify-between text-[11px]">
-                                    <span class="font-bold text-cute-cocoa">3. Glue-Word Predictability (STEM Safe)</span>
-                                    <span id="p3Detail" class="font-mono text-cute-cocoa/80">0 STEM saved | 0/100</span>
+                                <div id="p2Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="Run a scan to view mathematical metrics">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa">2. AI Phrases</span>
+                                        <span id="p2Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p2Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
-                                    <div id="p3Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
-                                </div>
-                            </div>
 
-                            <!-- Pillar 4: Paragraph Symmetry -->
-                            <div class="space-y-1">
-                                <div class="flex justify-between text-[11px]">
-                                    <span class="font-bold text-cute-cocoa">4. Paragraph Length Symmetry</span>
-                                    <span id="p4Detail" class="font-mono text-cute-cocoa/80">CV: — | 0/100</span>
+                                <div id="p3Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="Run a scan to view mathematical metrics">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa">3. Predictability</span>
+                                        <span id="p3Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p3Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
-                                    <div id="p4Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
-                                </div>
-                            </div>
 
-                            <!-- Pillar 5: Complexity vs Grammar Flawlessness -->
-                            <div class="space-y-1">
-                                <div class="flex justify-between text-[11px]">
-                                    <span class="font-bold text-cute-cocoa">5. Complexity vs. Perfect Grammar</span>
-                                    <span id="p5Detail" class="font-mono text-cute-cocoa/80">FK: — | 0 errs | 0/100</span>
+                                <div id="p4Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="Run a scan to view mathematical metrics">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa">4. Structure</span>
+                                        <span id="p4Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p4Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
-                                    <div id="p5Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+
+                                <div id="p5Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="Run a scan to view mathematical metrics">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa">5. Grammar</span>
+                                        <span id="p5Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p5Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Direct Text Problem Inspector (Fused with Safe AI Improvement Engine) -->
+                    <!-- Unified Single-Card Problem Inspector -->
                     <div class="bg-white rounded-2xl border-2 border-cute-blushBorder shadow-sm overflow-hidden flex flex-col">
                         <div class="px-4 py-3 bg-cute-pink text-white flex items-center justify-between gap-2">
                             <div class="flex items-center gap-2">
                                 <i class="ph-fill ph-bone text-base"></i>
                                 <span class="text-xs font-bold tracking-wide">Problem Inspector</span>
                             </div>
-                            <div id="inspectorIssueNav" class="flex items-center gap-1">
-                                <button onclick="navigateIssue(-1)" class="p-1 rounded hover:bg-white/20 transition" title="Previous Problem">
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="navigateIssue(-1)" class="p-1 rounded hover:bg-white/20 transition" title="Previous Problem">
                                     <i class="ph-bold ph-caret-left text-xs"></i>
                                 </button>
                                 <span id="inspectorCounter" class="text-xs font-mono font-bold px-1.5">0 / 0</span>
-                                <button onclick="navigateIssue(1)" class="p-1 rounded hover:bg-white/20 transition" title="Next Problem">
+                                <button type="button" onclick="navigateIssue(1)" class="p-1 rounded hover:bg-white/20 transition" title="Next Problem">
                                     <i class="ph-bold ph-caret-right text-xs"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Fused Inspector Sub-Tabs -->
-                        <div class="px-3 py-2 bg-cute-blush/60 border-b border-cute-blushBorder flex items-center gap-1.5">
-                            <button id="inspectorTabIssueBtn" onclick="switchInspectorTab('issue')" class="flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center justify-center gap-1.5">
-                                <i class="ph-fill ph-magnifying-glass text-cute-pink"></i>
-                                <span>逐項問題</span>
-                                <span id="inspectorIssueCountPill" class="px-1.5 py-0.2 rounded-full bg-cute-blush text-cute-cocoa text-[10px] font-mono">0</span>
-                            </button>
-                            <button id="inspectorTabImproveBtn" onclick="switchInspectorTab('improve')" class="flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center justify-center gap-1.5">
-                                <i class="ph-fill ph-sparkle text-cute-pink"></i>
-                                <span>改善 AI 率建議</span>
-                                <span id="inspectorImproveBadge" class="hidden px-1.5 py-0.2 rounded-full bg-[#2d7a5b] text-white text-[10px] font-mono">0</span>
-                            </button>
-                        </div>
-
                         <div id="inspectorBody" class="p-5 space-y-4 bg-white">
                             <div class="text-center py-8 text-cute-cocoa/70 text-xs font-semibold flex flex-col items-center gap-2.5">
                                 <i class="ph-fill ph-paw-print text-3xl text-cute-pink"></i>
-                                <p>Paste your passage on the left and click <strong>Scan Text</strong> to inspect exact issues and generate safe AI-reduction improvements.</p>
+                                <p>Paste your text on the left and click <strong>Scan Text</strong> to inspect issues and apply meaning-preserving fixes.</p>
                             </div>
                         </div>
                     </div>
 
-                </div>
-            </div>
-
-            <!-- Real-Life Human Essay Examples Matched to User's Topic -->
-            <div id="relatedExamplesSection" class="hidden bg-white rounded-2xl border-2 border-cute-blushBorder p-6 shadow-sm space-y-4">
-                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cute-blushBorder pb-3">
-                    <div class="flex items-center gap-2.5">
-                        <!-- Cute Shiba Puppy SVG -->
-                        <svg viewBox="0 0 100 100" class="w-7 h-7 shrink-0" aria-hidden="true">
-                            <path d="M20 35 L15 12 L40 24 Z" fill="#d97757" stroke="#3b282e" stroke-width="4"></path>
-                            <path d="M80 35 L85 12 L60 24 Z" fill="#d97757" stroke="#3b282e" stroke-width="4"></path>
-                            <rect x="20" y="24" width="60" height="52" rx="26" fill="#f5b041" stroke="#3b282e" stroke-width="4"></rect>
-                            <path d="M22 52 C35 44 65 44 78 52 C74 68 64 76 50 76 C36 76 26 68 22 52 Z" fill="#fff8f6"></path>
-                            <circle cx="36" cy="44" r="4" fill="#3b282e"></circle>
-                            <circle cx="64" cy="44" r="4" fill="#3b282e"></circle>
-                            <ellipse cx="50" cy="52" rx="4.5" ry="3" fill="#3b282e"></ellipse>
-                        </svg>
-                        <div>
-                            <h3 class="text-sm font-bold text-cute-cocoa">Real-Life Human Essay Examples Related to Your Passage</h3>
-                            <p id="detectedTopicLabel" class="text-xs text-cute-pink font-semibold">Matched to your passage's key terms and academic subject</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 rounded-full bg-cute-cream border border-cute-creamBorder text-[11px] font-bold text-cute-cocoa">
-                        Human Benchmark (&lt;5% AI Score)
-                    </span>
-                </div>
-
-                <div id="relatedExamplesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Populated dynamically based on user's text -->
                 </div>
             </div>
 
@@ -463,2161 +351,60 @@
 
         <!-- ================= PAGE 2: REFERENCE LIBRARY & LOGIC ================= -->
         <section id="pageReference" class="hidden space-y-6">
-            <!-- How Academic AI Detection Works -->
             <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-6 shadow-sm space-y-4">
-                <div class="flex items-center justify-between border-b border-cute-blushBorder pb-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cute-blushBorder pb-3">
                     <div>
-                        <h2 class="text-base font-bold text-cute-cocoa">5-Pillar Math + 4-Dimension Bilingual AI Engine</h2>
-                        <p class="text-xs text-cute-pink font-semibold">Integrates no-ai-slop, stop-slop, and humanizer-zh heuristics with STEM protection</p>
+                        <h2 class="text-base font-bold text-cute-cocoa">5-Pillar Scoring &amp; 3-Tier Meaning-Preserving Engine</h2>
+                        <p class="text-xs text-cute-pink font-semibold">Deterministic local rules + STEM whitelist protection (zero external LLM calls)</p>
                     </div>
-                    <button onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-xl bg-cute-blush hover:bg-cute-pink hover:text-white text-cute-cocoa text-xs font-bold transition">
+                    <button type="button" onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-xl bg-cute-blush hover:bg-cute-pink hover:text-white text-cute-cocoa text-xs font-bold transition">
                         ← Back to Scanner
                     </button>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
                     <div class="p-4 rounded-xl bg-cute-cream border border-cute-creamBorder space-y-1.5">
-                        <span class="font-bold text-cute-cocoa block text-sm">1. Mathematical Burstiness (23% Weight)</span>
-                        <p class="text-cute-cocoa/85">Measures Standard Deviation (σ) of sentence lengths across both English words and Chinese characters (scaled to semantic units). Uniform LLM cadence triggers a higher AI score.</p>
+                        <span class="font-bold text-cute-cocoa block text-sm">1. Sentence Flow (23% Weight)</span>
+                        <p class="text-cute-cocoa/85">Computes sentence-length Standard Deviation (SD). Uniform cadence signals AI prose, while Layer 2 offers one-click connector splits that keep 100% of your meaning.</p>
                     </div>
                     <div class="p-4 rounded-xl bg-cute-blush/50 border border-cute-blushBorder space-y-1.5">
-                        <span class="font-bold text-cute-cocoa block text-sm">2. 20+ Bilingual Slop &amp; Syntax Rules (30% Weight)</span>
-                        <p class="text-cute-cocoa/85">Detects English &amp; Traditional/Simplified Chinese AI markers across 4 dimensions—<strong>Authenticity</strong> (假對比/禁用詞), <strong>Density</strong> (冗餘進行＋動詞/空泛副詞), <strong>Directness</strong> (起跑式鋪墊/假施事), and <strong>Trust</strong> (模糊借權威/意義拔高).</p>
+                        <span class="font-bold text-cute-cocoa block text-sm">2. AI Phrases (30% Weight)</span>
+                        <p class="text-cute-cocoa/85">Scans English buzzwords, throat-clearing openers, binary contrasts, and corporate idioms across 4 Human Health dimensions, then restructures full clauses via capture groups.</p>
                     </div>
                     <div class="p-4 rounded-xl bg-[#f3faf6] border border-[#b7e0cc] space-y-1.5">
-                        <span class="font-bold text-[#225741] block text-sm">3. Bilingual STEM Jargon Whitelist (17% Weight)</span>
-                        <p class="text-[#1e4d39]/90">Ignores whitelisted English &amp; Chinese Biology, Chemistry, Medical, and CS terminology (e.g., <em>spectrophotometry, 電泳, 離心, 聚合酶</em>) before evaluating glue-word predictability.</p>
+                        <span class="font-bold text-[#225741] block text-sm">3. Predictability (17% Weight)</span>
+                        <p class="text-[#1e4d39]/90">Protects 160+ Biology, Chemistry, Physics, Medical, and CS terms (plus scientific suffixes) before measuring abstract nominalization density and lexical variety.</p>
                     </div>
                     <div class="p-4 rounded-xl bg-cute-blush/50 border border-cute-blushBorder space-y-1.5">
-                        <span class="font-bold text-cute-cocoa block text-sm">4. Paragraph Symmetry Variance (15% Weight)</span>
-                        <p class="text-cute-cocoa/85">Computes character-length variance and Coefficient of Variation (CV) across body paragraphs to spot AI's overly balanced paragraph geometry.</p>
+                        <span class="font-bold text-cute-cocoa block text-sm">4. Structure (15% Weight)</span>
+                        <p class="text-cute-cocoa/85">Evaluates paragraph-length Coefficient of Variation (CV) to spot overly symmetric blocks, offering one-click paragraph breaks at natural transition sentences.</p>
                     </div>
                     <div class="p-4 rounded-xl bg-cute-cream border border-cute-creamBorder space-y-1.5 md:col-span-2">
-                        <span class="font-bold text-cute-cocoa block text-sm">5. Readability Complexity vs. Grammar Flawlessness (15% Weight)</span>
-                        <p class="text-cute-cocoa/85">Combines Flesch-Kincaid Grade Level (for English) or CJK Structural Density (for Chinese) with the LanguageTool Grammar API + local human-quirk checks to flag dense, syntactically sterile prose.</p>
+                        <span class="font-bold text-cute-cocoa block text-sm">5. Grammar (15% Weight)</span>
+                        <p class="text-cute-cocoa/85">Pairs Flesch-Kincaid Grade Level with LanguageTool API checks (falling back seamlessly to local heuristics offline) to flag dense, syntactically sterile prose.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Cross-Disciplinary Human vs AI Benchmark Examples -->
+            <!-- Human vs AI Benchmark Library (Populated from rules-en.js) -->
             <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-6 shadow-sm space-y-4">
                 <div>
-                    <h3 class="text-base font-bold text-cute-cocoa">Real-Life Human Essay Benchmark Library</h3>
-                    <p class="text-xs text-cute-pink font-semibold">Side-by-side comparisons across academic disciplines</p>
+                    <h3 class="text-base font-bold text-cute-cocoa">Human vs. AI Benchmark Library</h3>
+                    <p class="text-xs text-cute-pink font-semibold">Side-by-side English academic comparisons</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
-                    <!-- Discipline 1 -->
-                    <div class="p-4 rounded-xl border border-cute-blushBorder bg-[#fffdf9] flex flex-col justify-between space-y-3">
-                        <div class="space-y-2">
-                            <span class="px-2.5 py-0.5 rounded-full bg-cute-cream border border-cute-creamBorder font-bold text-[10px] text-cute-cocoa uppercase">History &amp; Humanities</span>
-                            <div class="p-2.5 rounded-lg bg-[#f9dfe4]/60 border border-cute-blushBorder">
-                                <span class="font-bold text-cute-pink block text-[10px] uppercase">AI-Typical Draft (92% AI)</span>
-                                <p class="font-serif italic mt-1">"In the rapidly evolving landscape of nineteenth-century industrialization, railways played a pivotal role in transforming economic paradigms and fostering social mobility."</p>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-[#e8f6ef] border border-[#bde0ce]">
-                                <span class="font-bold text-[#256346] block text-[10px] uppercase">Real Human Essay (2% AI)</span>
-                                <p class="font-serif mt-1">"When the Liverpool and Manchester Railway opened in 1830, freight tariffs between the port and inland mills fell by nearly a third within eighteen months (Bagwell, 1968, p. 84)."</p>
-                            </div>
-                        </div>
-                        <button onclick="loadBenchmarkIntoScanner('When the Liverpool and Manchester Railway opened in 1830, freight tariffs between the port and inland mills fell by nearly a third within eighteen months (Bagwell, 1968, p. 84). Yet cheap coal transport did not benefit every parish equally; smaller weaving towns bypassed by the surveying engineers lost half their looms by 1845.')" class="w-full py-1.5 rounded-lg bg-cute-blush hover:bg-cute-pink hover:text-white font-bold text-cute-cocoa transition">
-                            Test Human Passage in Scanner
-                        </button>
-                    </div>
-
-                    <!-- Discipline 2 -->
-                    <div class="p-4 rounded-xl border border-cute-blushBorder bg-[#fffdf9] flex flex-col justify-between space-y-3">
-                        <div class="space-y-2">
-                            <span class="px-2.5 py-0.5 rounded-full bg-cute-cream border border-cute-creamBorder font-bold text-[10px] text-cute-cocoa uppercase">Cognitive &amp; Computer Science</span>
-                            <div class="p-2.5 rounded-lg bg-[#f9dfe4]/60 border border-cute-blushBorder">
-                                <span class="font-bold text-cute-pink block text-[10px] uppercase">AI-Typical Draft (96% AI)</span>
-                                <p class="font-serif italic mt-1">"Furthermore, it is crucial to recognize that transformer architectures delve into multifaceted attention mechanisms to optimize natural language understanding across diverse domains."</p>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-[#e8f6ef] border border-[#bde0ce]">
-                                <span class="font-bold text-[#256346] block text-[10px] uppercase">Real Human Essay (4% AI)</span>
-                                <p class="font-serif mt-1">"Unlike recurrent networks that process tokens sequentially, Vaswani et al. (2017) replaced recurrence entirely with scaled dot-product self-attention—cutting training time on WMT-2014 by an order of magnitude."</p>
-                            </div>
-                        </div>
-                        <button onclick="loadBenchmarkIntoScanner('Unlike recurrent networks that process tokens sequentially, Vaswani et al. (2017) replaced recurrence entirely with scaled dot-product self-attention—cutting training time on WMT-2014 by an order of magnitude. Why does attention scale so cleanly? Because matrix multiplication parallelizes across GPU cores without waiting for prior hidden states.')" class="w-full py-1.5 rounded-lg bg-cute-blush hover:bg-cute-pink hover:text-white font-bold text-cute-cocoa transition">
-                            Test Human Passage in Scanner
-                        </button>
-                    </div>
-
-                    <!-- Discipline 3 -->
-                    <div class="p-4 rounded-xl border border-cute-blushBorder bg-[#fffdf9] flex flex-col justify-between space-y-3">
-                        <div class="space-y-2">
-                            <span class="px-2.5 py-0.5 rounded-full bg-cute-cream border border-cute-creamBorder font-bold text-[10px] text-cute-cocoa uppercase">繁體中文學術／評論範例</span>
-                            <div class="p-2.5 rounded-lg bg-[#f9dfe4]/60 border border-cute-blushBorder">
-                                <span class="font-bold text-cute-pink block text-[10px] uppercase">AI 腔草稿 (高 AI 風險)</span>
-                                <p class="font-serif italic mt-1">「值得注意的是，這不僅是一場技術革新，更是賦能產業生態閉環的里程碑。專家普遍認為，我們需要進行全面分析。」</p>
-                            </div>
-                            <div class="p-2.5 rounded-lg bg-[#e8f6ef] border border-[#bde0ce]">
-                                <span class="font-bold text-[#256346] block text-[10px] uppercase">真實人類寫作 (低 AI 風險)</span>
-                                <p class="font-serif mt-1">「2024年台積電導入新製程後，良率在兩季內從68%升至82%；但中小型封測廠受限於資本支出，並未同步受惠。」</p>
-                            </div>
-                        </div>
-                        <button onclick="loadBenchmarkIntoScanner('2024年台積電導入新製程後，良率在兩季內從68%升至82%；但中小型封測廠受限於資本支出，並未同步受惠。差距為何擴大？主因其實很直接——高階設備交期長達十四個月，小廠根本無法負擔現金流壓力。')" class="w-full py-1.5 rounded-lg bg-cute-blush hover:bg-cute-pink hover:text-white font-bold text-cute-cocoa transition">
-                            載入中文人類範例測試
-                        </button>
-                    </div>
-                </div>
+                <div id="referenceBenchmarksGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed"></div>
             </div>
         </section>
 
     </main>
 
-    <!-- Subtle Footer -->
+    <!-- Footer -->
     <footer class="max-w-6xl w-full mx-auto px-4 py-5 text-center text-xs text-cute-cocoa/60 font-semibold">
-        ScholaraPuppy Academic AI Similarity &amp; Style Analyzer • Bilingual EN/中文 Engine + STEM Whitelist 🐾
+        ScholaraPuppy Academic AI Similarity &amp; Style Analyzer • English Edition
     </footer>
 
-    <script>
-        // ============================================================================
-        // GLOBAL STATE & STORAGE KEYS
-        // ============================================================================
-        const MEMORY_KEY = 'scholara_puppy_last_5_v3';
-        let recentMemory = [];
-        let currentPassage = "";
-        let detectedIssues = [];
-        let activeIssueIndex = 0;
-        let inspectorTab = 'issue'; // 'issue' | 'improve'
-        let humanizeAcademicMode = true; // 預設保守學術模式，避免破壞正式論文文體
-        let lastAnalysis = null;
-        let lastHumanizeResult = null;
-        let previousPassageBeforeHumanize = null;
-
-        // ============================================================================
-        // PILLAR 2: BILINGUAL AI DETECTION RULES (no-ai-slop / stop-slop / humanizer-zh)
-        // ============================================================================
-        const AI_DETECTION_RULES = [
-            // ================= 1. 英文禁用詞與商業行話 =================
-            {
-                id: 'en_banned_words',
-                category: 'lexicon',
-                dimension: 'authenticity',
-                name: '英文 AI 高頻空泛詞 (Banned Words)',
-                severity: 4,
-                regex: /\b(delve|delves|delving|foster|fosters|fostering|leverage|leverages|leveraging|utilize|utilizes|utilizing|facilitate|facilitates|facilitating|empower|empowers|streamline|robust|cutting-edge|paradigm shift|game[- ]changer|this is huge|this changes everything|tapestry|realm|beacon|multifaceted|meticulous|intricate|paramount|transformative|elevate|embark|supercharge|harness|ever-evolving|vital)\b/gi,
-                suggestion: '改用具體、平實的日常動詞或名詞（如用 use 代替 utilize、important 代替 paramount）。',
-                prevent: '建立個人學術動詞清單（examine, measure, test, use），避開 LLM 偏好的戲劇化修飾詞。',
-                replacementFn: (m) => {
-                    const map = {
-                        delve: 'examine', delves: 'examines', delving: 'examining',
-                        foster: 'support', fosters: 'supports', fostering: 'supporting',
-                        leverage: 'use', leverages: 'uses', leveraging: 'using',
-                        utilize: 'use', utilizes: 'uses', utilizing: 'using',
-                        facilitate: 'help', facilitates: 'helps', facilitating: 'helping',
-                        empower: 'enable', empowers: 'enables',
-                        streamline: 'simplify', robust: 'reliable', 'cutting-edge': 'modern',
-                        'paradigm shift': 'major change', 'game-changer': 'turning point', 'game changer': 'turning point',
-                        tapestry: 'mix', realm: 'field', beacon: 'model',
-                        multifaceted: 'varied', meticulous: 'careful', intricate: 'detailed',
-                        paramount: 'critical', transformative: 'major', elevate: 'raise',
-                        embark: 'begin', supercharge: 'speed up', harness: 'use',
-                        'ever-evolving': 'changing', vital: 'key'
-                    };
-                    return matchCase(m, map[m.toLowerCase()] || 'specific');
-                }
-            },
-            {
-                id: 'en_business_jargon',
-                category: 'lexicon',
-                dimension: 'density',
-                name: '英文商業套話 (Business Jargon)',
-                severity: 3,
-                regex: /\b(navigate\s+(?:the\s+)?challenges?|unpack|lean into|landscape|double down|deep dive|take a step back|moving forward|circle back|on the same page)\b/gi,
-                suggestion: '換成白話表達（例如用 examine 代替 unpack，用 handle 代替 navigate）。',
-                prevent: '以具體的學科場域或動作詞取代企管簡報式的隱喻。',
-                replacementFn: (m) => {
-                    const lower = m.toLowerCase();
-                    if (lower.startsWith('navigate')) return matchCase(m, 'address challenges');
-                    if (lower === 'unpack') return matchCase(m, 'explain');
-                    if (lower === 'landscape') return matchCase(m, 'field');
-                    if (lower === 'deep dive') return matchCase(m, 'close analysis');
-                    if (lower === 'moving forward') return matchCase(m, 'next');
-                    return matchCase(m, 'focus on');
-                }
-            },
-            {
-                id: 'en_empty_adverbs',
-                category: 'lexicon',
-                dimension: 'density',
-                name: '空泛副詞與強調詞 (Empty Adverbs)',
-                severity: 2,
-                regex: /\b(really|just|literally|genuinely|honestly|simply|actually|deeply|truly|fundamentally|inherently|inevitably|interestingly|importantly|crucially)\b/gi,
-                suggestion: '若無轉折或特定語氣需求，直接刪除以提升句子密度。',
-                prevent: '讓動詞與數據本身展現強度，減少句首或動詞前的空泛副詞。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'en_filler_phrases',
-                category: 'lexicon',
-                dimension: 'directness',
-                name: '英文填充短語 (Filler Phrases)',
-                severity: 4,
-                regex: /\b(it'?s worth noting(?: that)?|it is worth noting(?: that)?|it'?s important to note(?: that)?|it is important to note(?: that)?|at the end of the day|when it comes to|at its core|in today'?s (?:world|landscape|era|age)|in the (?:age|world) of|in a world where|the reality is|the truth is|in terms of|with regard to|in order to|going forward|in this article|let'?s dive in)\b/gi,
-                suggestion: '刪除拖延重點的套話，直接陳述核心事實。',
-                prevent: '每句話直接以主詞（研究對象、作者或變項）起頭，不加「值得注意的是」類墊語。',
-                replacementFn: (m) => {
-                    const lower = m.toLowerCase();
-                    if (lower === 'in order to') return matchCase(m, 'to');
-                    if (lower === 'with regard to' || lower === 'in terms of') return matchCase(m, 'regarding');
-                    return '';
-                }
-            },
-
-            // ================= 2. 英文句法與修辭套路 =================
-            {
-                id: 'en_throat_clearing',
-                category: 'syntax',
-                dimension: 'directness',
-                name: '起跑式鋪墊 (Throat-Clearing Openers)',
-                severity: 5,
-                hasLeadingBoundary: true,
-                regex: /(^|[.!?]\s+)(Here'?s the thing:?|Here'?s (?:what|this|that|why)\b[^.!?]{0,30}:?|The uncomfortable truth is|It turns out(?: that)?|Let me be clear:?|I'?ll say it again:?|I'?m going to be honest|I'?ll be honest|Can we talk about|Here'?s what I find interesting|Here'?s the problem though)/gi,
-                suggestion: '砍掉開頭預告，直接切入論點。',
-                prevent: '刪去對話式起跑句，讓讀者第一眼就看到實質主張。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'en_faux_insight',
-                category: 'syntax',
-                dimension: 'trust',
-                name: '偽洞察開場 (Faux-Insight Setups)',
-                severity: 5,
-                regex: /\b(this is the part most people skip|what most people get wrong|here'?s what nobody tells you|the part everyone misses|the detail that makes it work:|the best part:)\b/gi,
-                suggestion: '移除「唯獨我懂」的鋪墊，讓論點本身說話。',
-                prevent: '學術與專業寫作不需要製造「揭密感」，直接呈現反直覺的數據即可。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'en_binary_contrast',
-                category: 'syntax',
-                dimension: 'authenticity',
-                name: '英文二元假對比 (Binary Contrast)',
-                severity: 5,
-                regex: /\b(?:not because [^.,!?]+[.,]\s*(?:but )?because|isn'?t the problem[.,]\s*[^.,!?]+ is|the (?:answer|question) isn'?t [^.,!?]+[.,]\s*it'?s|it'?s not just [^.,!?]+(?:,| but(?: also)?)|stops being [^.,!?]+ and starts being|doesn'?t mean [^.,!?]+,?\s*but actually)\b/gi,
-                suggestion: '刪除否定前半句的戲劇化反轉，直接陳述肯定結論 Y。',
-                prevent: '避免連續使用「not X, but Y」對仗句式，這是 LLM 最容易被偵測的修辭指紋。',
-                replacementFn: (m) => {
-                    const parts = m.split(/\b(?:but also|but actually|but|it's|its)\b/i);
-                    return parts.length > 1 ? parts[parts.length - 1].trim() : m;
-                }
-            },
-            {
-                id: 'en_rhetorical_meta',
-                category: 'syntax',
-                dimension: 'trust',
-                name: '反問、強調拐杖與元評論 (Rhetorical & Meta)',
-                severity: 4,
-                regex: /\b(Full stop\.|Period\.|Let that sink in\.|Make no mistake|This matters because|Here'?s why that matters|What if I told you|Think about it:|Plot twist:|Spoiler:|Hint:|And that'?s okay\.|As you can see|The key point is|This distinction matters|In this section, we'?ll|The rest of this essay explains|Let me walk you through)\b/gi,
-                suggestion: '信任讀者理解力，刪除指揮讀者如何解讀的旁白。',
-                prevent: '減少「Let that sink in」或「As you can see」等元評論，改以邏輯銜接前後句。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'en_superficial_ing',
-                category: 'syntax',
-                dimension: 'density',
-                name: '句尾分詞拔高 (Superficial -ing Analysis)',
-                severity: 4,
-                regex: /,\s+(highlighting|underscoring|reflecting|showcasing|demonstrating|emphasizing|signaling)\s+(?:the|a|its|their)\b/gi,
-                suggestion: '刪除空泛的意義詮釋，改為交代具體結果或機制。',
-                prevent: '檢查逗號後面接 -ing 分詞的子句：若只是重複主句意義，請直接刪去或改寫成數據結果。',
-                replacementFn: () => ', which points to a'
-            },
-            {
-                id: 'en_puffery_weasel',
-                category: 'syntax',
-                dimension: 'trust',
-                name: '意義拔高或模糊權威 (Puffery & Weasel Attribution)',
-                severity: 5,
-                regex: /\b(stands as a testament|serves as a testament|a testament to|marks a pivotal moment|plays a (?:vital|pivotal|crucial) role|solidifies its position|underscores its significance|experts agree|industry reports suggest|many argue|widely regarded as|studies show|the reasons are structural|the implications are significant|the stakes are high|the consequences are real)\b/gi,
-                suggestion: '補上具體數據、事件或具名來源；若無來源則刪除該宣稱。',
-                prevent: '用「(Author, Year)」具名文獻取代「studies show / experts agree」，用具體因果動詞取代「plays a vital role」。',
-                replacementFn: (m) => {
-                    const lower = m.toLowerCase();
-                    if (lower.includes('role')) return matchCase(m, 'directly shapes');
-                    if (lower.includes('testament')) return matchCase(m, 'evidence of');
-                    if (lower.includes('studies show') || lower.includes('experts agree')) return matchCase(m, 'recent empirical trials (Author, 2024) indicate');
-                    return matchCase(m, 'demonstrates measurable impact');
-                }
-            },
-            {
-                id: 'en_false_agency',
-                category: 'syntax',
-                dimension: 'directness',
-                name: '無生命主語假施事 (False Agency)',
-                severity: 4,
-                regex: /\b(the decision emerges|the culture shifts|the conversation moves toward|the data tells us|the market rewards|a complaint becomes a fix|a bet lives or dies)\b/gi,
-                suggestion: '寫出真正採取行動的人或團隊（主動語態）。',
-                prevent: '主語應是具體的行動者（研究人員、工程師、受試者），而非抽象概念自動發生。',
-                replacementFn: (m) => {
-                    const lower = m.toLowerCase();
-                    if (lower.includes('data tells')) return matchCase(m, 'the measurements indicate');
-                    if (lower.includes('decision emerges')) return matchCase(m, 'the committee decided');
-                    return matchCase(m, 'practitioners shifted');
-                }
-            },
-            {
-                id: 'en_summary_recap',
-                category: 'syntax',
-                dimension: 'directness',
-                name: '公式化總結收尾 (Summary Recap)',
-                severity: 4,
-                hasLeadingBoundary: true,
-                regex: /(^|[.!?]\s+)(In conclusion,|Ultimately,|Overall,|To sum up,|In summary,|Furthermore,)/gi,
-                suggestion: '刪除重述全文的總結詞或機械轉折詞，直接以具體結論或證據起頭。',
-                prevent: '減少段落開頭連續使用 Furthermore / In conclusion / Ultimately 等標準 LLM 連接詞。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'en_lazy_extremes',
-                category: 'lexicon',
-                dimension: 'trust',
-                name: '偷懶極端詞 (Lazy Extremes)',
-                severity: 2,
-                regex: /\b(everyone|everybody|nobody|always|never)\b/gi,
-                suggestion: '避免武斷的全稱斷言，改用具體範圍或比例。',
-                prevent: '在學術論述中用「most respondents」「rarely」「in 80% of cases」取代絕對字眼。',
-                replacementFn: (m) => {
-                    const map = { everyone: 'most readers', everybody: 'most people', nobody: 'few practitioners', always: 'consistently', never: 'rarely' };
-                    return matchCase(m, map[m.toLowerCase()] || 'frequently');
-                }
-            },
-
-            // ================= 3. 中文 AI 高頻詞與句法套路 =================
-            {
-                id: 'zh_ai_buzzwords',
-                category: 'lexicon',
-                dimension: 'authenticity',
-                name: '中文 AI 高頻空泛詞',
-                severity: 4,
-                regex: /(?:賦能|赋能|至關重要|至关重要|深入探討|深入探讨|無縫銜接|无缝衔接|無縫|无缝|商業閉環|生态闭环|生態閉環|閉環|闭环|抓手|矩陣|矩阵|痛點|痛点|全方位|多維度|多维度|前所未有)/g,
-                suggestion: '若非特定工程／領域專有名詞，請改用直白準確的動詞或描述。',
-                prevent: '用具體機制（如「縮短審核時間」「串接資料表」）取代「賦能」「閉環」「抓手」等空泛詞彙。',
-                replacementFn: (m) => {
-                    const map = {
-                        '賦能': '協助', '赋能': '协助',
-                        '至關重要': '關鍵', '至关重要': '关键',
-                        '深入探討': '分析', '深入探讨': '分析',
-                        '無縫銜接': '直接串接', '无缝衔接': '直接串接',
-                        '無縫': '順暢', '无缝': '顺畅',
-                        '商業閉環': '完整營收流程', '生态闭环': '完整流程', '生態閉環': '完整流程',
-                        '閉環': '完整流程', '闭环': '完整流程',
-                        '抓手': '切入點', '矩陣': '組合', '矩阵': '组合',
-                        '痛點': '瓶頸', '痛点': '瓶颈',
-                        '全方位': '完整', '多維度': '多面向', '多维度': '多面向',
-                        '前所未有': '顯著'
-                    };
-                    return map[m] || '具體';
-                }
-            },
-            {
-                id: 'zh_binary_contrast',
-                category: 'syntax',
-                dimension: 'authenticity',
-                name: '中文假對比（「不僅是 X，更是 Y」）',
-                severity: 5,
-                regex: /(?:這|这)?(?:不僅|不仅|不只|不單|不单)是[^，。！？]{1,25}[，,]\s*(?:更|而且|還|还)是/g,
-                suggestion: '若前半句無實質資訊，請直接陳述後半句的核心事實。',
-                prevent: '一篇文章內最多保留一次遞進對比，其餘改為直接陳述因果或事實。',
-                replacementFn: () => '核心在於'
-            },
-            {
-                id: 'zh_throat_clearing',
-                category: 'syntax',
-                dimension: 'directness',
-                name: '中文起跑式鋪墊與假想敵辯論',
-                severity: 4,
-                regex: /(?:接下來讓我們深入看看|接下来让我们深入看看|以下是你需要知道的|值得注意的是[，,]?|需要指出的是[，,]?|不容忽視的是[，,]?|不容忽视的是[，,]?|不要誤會[，,]我並不是|不要误会[，,]我并不是|說白了[，,]其實就是|说白了[，,]其实就是)/g,
-                suggestion: '刪除無資訊量的預告與自我辯護，直接講正文。',
-                prevent: '刪去「值得注意的是」「需要指出的是」，直接把真正重要的事實放在句首。',
-                replacementFn: () => ''
-            },
-            {
-                id: 'zh_puffery_tail',
-                category: 'syntax',
-                dimension: 'trust',
-                name: '中文意義拔高與句尾補充拔高',
-                severity: 5,
-                regex: /(?:標誌著[^，。！？]{1,15}(?:新時代|里程碑|到來)|标志着[^，。！？]{1,15}(?:新时代|里程碑|到来)|(?:充分)?彰顯了[^，。！？]{1,20}|(?:充分)?彰显了[^，。！？]{1,20}|堪稱[^，。！？]{1,12}的(?:夢想天堂|典範|標杆)|堪称[^，。！？]{1,12}的(?:梦想天堂|典范|标杆))/g,
-                suggestion: '刪去空洞讚美與意義拔高，保留客觀事實、功能或結果。',
-                prevent: '避免在句尾加上「彰顯了……的深遠意義」或「標誌著新時代」，改補具體數據變化。',
-                replacementFn: () => '反映出具體成效'
-            },
-            {
-                id: 'zh_weasel_authority',
-                category: 'syntax',
-                dimension: 'trust',
-                name: '中文模糊借權威',
-                severity: 4,
-                regex: /(?:(?:一些|部分|許多|很多|相關|相关)?(?:未具名的)?專家(?:普遍)?認為|(?:一些|部分|许多|很多|相关)?(?:未具名的)?专家(?:普遍)?认为|業內人士普遍指出|业内人士普遍指出|研究表明|數據顯示|数据显示)/g,
-                suggestion: '補上具體研究機構、論文或受訪者名稱，否則需註明不確定性。',
-                prevent: '寫明「2024 年台大團隊研究（王等，2024）」而非籠統的「專家普遍認為／數據顯示」。',
-                replacementFn: (m) => m.includes('數據') || m.includes('数据') ? '2024 年實測紀錄顯示' : '相關文獻（作者，2024）指出'
-            },
-            {
-                id: 'zh_jinxing_verb',
-                category: 'syntax',
-                dimension: 'density',
-                name: '冗餘「進行＋動詞」結構',
-                severity: 3,
-                regex: /[進进]行(?:全面|深入|詳細|详细|系統|系统|徹底|彻底|有效|進一步|进一步)?(?:分析|測試|测试|調整|调整|評估|评估|優化|优化|討論|讨论|處理|处理|檢查|检查|管理|開發|开发|修改|比較|比较)/g,
-                suggestion: '直接以動詞替代（例：「進行全面測試」→「全面測試」）。',
-                prevent: '中文母語者多直接使用動詞本身，減少「進行＋名詞化動詞」的翻譯腔。',
-                replacementFn: (m) => m.replace(/^[進进]行/, '')
-            },
-            {
-                id: 'zh_stacked_qualifiers',
-                category: 'syntax',
-                dimension: 'density',
-                name: '限定詞重複堆疊',
-                severity: 3,
-                regex: /(?:也許可能|也许可能|大概也許|大概也许|或許可能|或许可能|在一定程度上可能|從某種意義上來說可能|从某种意义上来说可能)/g,
-                suggestion: '合併重複的不確定詞，只保留一層準確的限定詞。',
-                prevent: '只保留「可能」或「約略」，避免多重語氣緩衝詞疊加。',
-                replacementFn: () => '可能'
-            }
-        ];
-
-        // ============================================================================
-        // PILLAR 3: BILINGUAL SCIENTIFIC & TECHNICAL JARGON WHITELIST (STEM SAFE)
-        // ============================================================================
-        const STEM_WHITELIST_EN = new Set([
-            'spectrophotometry', 'spectrophotometer', 'centrifugation', 'centrifuge', 'electrophoresis',
-            'chromatography', 'titration', 'molarity', 'stoichiometry', 'thermodynamics', 'enthalpy',
-            'entropy', 'catalysis', 'catalyst', 'enzyme', 'enzymatic', 'substrate', 'inhibitor',
-            'mitochondria', 'mitochondrial', 'cytoplasm', 'ribosome', 'nucleotide', 'polymerase',
-            'transcription', 'translation', 'phosphorylation', 'glycolysis', 'photosynthesis',
-            'homeostasis', 'osmosis', 'diffusion', 'gradient', 'membrane', 'phospholipid', 'protein',
-            'peptide', 'amino', 'acid', 'reagent', 'aliquot', 'supernatant', 'precipitate', 'pellet',
-            'pipette', 'micropipette', 'cuvette', 'absorbance', 'wavelength', 'fluorescence',
-            'assay', 'incubation', 'incubated', 'buffer', 'saline', 'solution', 'concentration',
-            'dilution', 'calibration', 'baseline', 'control', 'replicate', 'replicates', 'sample',
-            'samples', 'specimen', 'cohort', 'placebo', 'dosage', 'biomarker', 'genotype', 'phenotype',
-            'allele', 'chromosome', 'mutation', 'genome', 'sequencing', 'amplicon', 'primer', 'plasmid',
-            'bacteria', 'bacterial', 'pathogen', 'antigen', 'antibody', 'cytokine', 'inflammation',
-            'oxidation', 'reduction', 'redox', 'hydrolysis', 'isomer', 'polymer', 'monomer', 'covalent',
-            'ionic', 'hydrogen', 'carbon', 'nitrogen', 'oxygen', 'sodium', 'potassium', 'chloride',
-            'calcium', 'magnesium', 'phosphate', 'sulfate', 'ethanol', 'methanol', 'chloroform',
-            'glucose', 'sucrose', 'lactose', 'starch', 'cellulose', 'adenosine', 'triphosphate',
-            'velocity', 'acceleration', 'momentum', 'voltage', 'amperage', 'resistance', 'capacitance',
-            'inductance', 'frequency', 'amplitude', 'resonance', 'diffraction', 'refraction', 'photon',
-            'electron', 'proton', 'neutron', 'isotope', 'quantum', 'magnetic', 'electrostatic',
-            'algorithm', 'heuristic', 'regression', 'variance', 'deviation', 'correlation', 'pvalue',
-            'anova', 'chi-square', 'bayesian', 'stochastic', 'deterministic', 'matrix', 'vector',
-            'tensor', 'gradient', 'backpropagation', 'convolution', 'transformer', 'tokenization',
-            'latency', 'throughput', 'bandwidth', 'protocol', 'encryption', 'cryptography', 'compiler'
-        ]);
-
-        const STEM_MORPHOLOGY_REGEX_EN = /\b(?:[a-z]+(?:ase|ose|ide|ate|ite|metry|graphy|scopy|lysis|genesis|phoresis|tropism|plasia|pathy|itis|oma)|(?:bio|neuro|cardio|immuno|chemo|electro|thermo|photo|micro|nano|macro|hydro|poly|mono|iso|aero|anaero)[a-z]{3,}|(?:pcr|dna|rna|mrna|atp|adp|nadh|elisa|hplc|nmr|uv-vis|tris-hcl|edta|sds-page|pbs|dmso|ph|rpm|nm|ml|ul|mg|mm))\b/i;
-
-        const STEM_WHITELIST_ZH = [
-            '分光光度計', '吸光度', '電泳', '凝膠電泳', '離心', '離心機', '上清液', '沉澱物',
-            '緩衝液', '滴定', '莫耳濃度', '化學計量', '熱力學', '催化劑', '酵素', '受質',
-            '粒線體', '細胞質', '核糖體', '核苷酸', '聚合酶', '轉錄', '轉譯', '磷酸化',
-            '糖解作用', '光合作用', '恆定性', '滲透壓', '濃度梯度', '細胞膜', '胺基酸',
-            '試劑', '檢體', '對照組', '實驗組', '樣本數', '標準曲線', '檢量線', '顯著水準',
-            '變異數分析', '迴歸分析', '相關係數', '基因型', '表現型', '突變', '質體',
-            '抗體', '抗原', '氧化還原', '水解', '共價鍵', '離子鍵', '葡萄糖', '乙醇',
-            '電阻', '電容', '頻率', '折射', '繞射', '演算法', '卷積', '注意力機制', '延遲'
-        ];
-
-        // ============================================================================
-        // INITIALIZATION & LIVE COUNTERS
-        // ============================================================================
-        window.onload = () => {
-            loadMemory();
-            const inputEl = document.getElementById('passageInput');
-            if (inputEl) {
-                inputEl.addEventListener('input', updateWordCount);
-                inputEl.focus();
-            }
-            updateWordCount();
-        };
-
-        function detectLanguageProfile(text) {
-            const cjkChars = (text.match(/[\u4e00-\u9fff]/g) || []).length;
-            const enWords = (text.match(/\b[a-zA-Z0-9]+(?:[-'][a-zA-Z0-9]+)*\b/g) || []).length;
-            const totalUnits = enWords + Math.round(cjkChars / 1.7);
-
-            let mode = 'en';
-            let badgeText = 'EN';
-            if (cjkChars > 10 && enWords < cjkChars * 0.25) {
-                mode = 'zh';
-                badgeText = '中文';
-            } else if (cjkChars >= 8 && enWords >= 8) {
-                mode = 'mixed';
-                badgeText = '中英混合';
-            } else if (cjkChars === 0 && enWords === 0) {
-                badgeText = 'AUTO';
-            }
-            return { mode, badgeText, cjkChars, enWords, totalUnits: Math.max(totalUnits, 0) };
-        }
-
-        function splitIntoSentences(text) {
-            const clean = text.trim();
-            if (!clean) return [];
-            const matches = clean.match(/[^.!?。！？\n]+(?:[.!?。！？]+|$)/g) || [];
-            return matches.map(s => s.trim()).filter(s => s.length > 0);
-        }
-
-        function updateWordCount() {
-            const text = (document.getElementById('passageInput')?.value || '').trim();
-            const lang = detectLanguageProfile(text);
-            const paras = text ? text.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean) : [];
-            const sentences = splitIntoSentences(text);
-
-            const langEl = document.getElementById('langBadge');
-            const paraEl = document.getElementById('paraCountBadge');
-            const sentEl = document.getElementById('sentenceCountBadge');
-            const wordEl = document.getElementById('wordCountBadge');
-
-            if (langEl) langEl.textContent = lang.badgeText;
-            if (paraEl) paraEl.textContent = `${paras.length} para${paras.length === 1 ? '' : 's'}`;
-            if (sentEl) sentEl.textContent = `${sentences.length} sentence${sentences.length === 1 ? '' : 's'}`;
-            if (wordEl) {
-                wordEl.textContent = lang.mode === 'zh'
-                    ? `${lang.cjkChars} 字`
-                    : `${lang.totalUnits} unit${lang.totalUnits === 1 ? '' : 's'}`;
-            }
-        }
-
-        function showToast(msg) {
-            const container = document.getElementById('toastContainer');
-            if (!container) return;
-            const toast = document.createElement('div');
-            toast.className = 'bg-cute-pink text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg border-2 border-[#b2596d] flex items-center gap-2 transition-all duration-300';
-            toast.innerHTML = `<i class="ph-fill ph-paw-print"></i><span>${escapeHtml(msg)}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 2800);
-        }
-
-        // ============================================================================
-        // PAGE, MODE & SAMPLE CONTROLS
-        // ============================================================================
-        function switchPage(page) {
-            const scannerPage = document.getElementById('pageScanner');
-            const refPage = document.getElementById('pageReference');
-            const navScannerBtn = document.getElementById('navScannerBtn');
-            const navRefBtn = document.getElementById('navRefBtn');
-
-            if (page === 'reference') {
-                scannerPage.classList.add('hidden');
-                refPage.classList.remove('hidden');
-                navRefBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center gap-1.5';
-                navScannerBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center gap-1.5';
-            } else {
-                refPage.classList.add('hidden');
-                scannerPage.classList.remove('hidden');
-                navScannerBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center gap-1.5';
-                navRefBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center gap-1.5';
-            }
-        }
-
-        function switchEditorMode(mode) {
-            const rawContainer = document.getElementById('rawEditorContainer');
-            const annotatedContainer = document.getElementById('annotatedContainer');
-            const editBtn = document.getElementById('tabEditBtn');
-            const highlightBtn = document.getElementById('tabHighlightBtn');
-
-            if (mode === 'highlight') {
-                rawContainer.classList.add('hidden');
-                annotatedContainer.classList.remove('hidden');
-                highlightBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm';
-                editBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-cute-cocoa/65 hover:text-cute-cocoa';
-            } else {
-                annotatedContainer.classList.add('hidden');
-                rawContainer.classList.remove('hidden');
-                editBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm';
-                highlightBtn.className = 'px-3 py-1 rounded-lg text-xs font-bold transition text-cute-cocoa/65 hover:text-cute-cocoa';
-                document.getElementById('passageInput')?.focus();
-            }
-        }
-
-        function loadSampleAIDraft() {
-            const sample = `In today's landscape of educational technology, it is important to note that generative models delve into multifaceted learning workflows. Furthermore, institutions utilize automated grading frameworks to streamline feedback, underscoring the significance of digital transformation.
-
-Here's the thing: it's not just about efficiency, but also about fostering equitable outcomes across diverse classrooms. Studies show that leveraging these robust methodologies plays a vital role in enhancing student engagement and solidifies its position as a game-changer.
-
-In conclusion, the data tells us that adopting a holistic paradigm shift stands as a testament to institutional excellence. Ultimately, stakeholders must navigate these challenges in order to unlock unprecedented academic potential.`;
-            document.getElementById('passageInput').value = sample;
-            updateWordCount();
-            runManualScan(true);
-        }
-
-        function loadSampleZhAIDraft() {
-            const sample = `在人工智慧快速發展的時代背景下，值得注意的是，這不僅是一場單純的工具升級，更是賦能產業建立生態閉環的關鍵轉折點。接下來讓我們深入看看企業轉型的核心痛點。
-
-專家普遍認為，團隊必須對現有流程進行全面分析，才能實現無縫銜接與多維度的效率提升。這項變革也許可能帶來短期陣痛，但從長遠來看，這充分彰顯了組織對創新價值的堅定承諾，標誌著智慧辦公新時代的到來。
-
-數據顯示，積極導入自動化系統能帶來前所未有的競爭優勢。總而言之，讓我們拭目以待，期待更多可能！`;
-            document.getElementById('passageInput').value = sample;
-            updateWordCount();
-            runManualScan(true);
-        }
-
-        function loadSampleSciLabReport() {
-            const sample = `We measured catalase enzymatic activity in Solanum tuberosum homogenates across five pH buffers (pH 4.0 to 8.0) using UV-Vis spectrophotometry at 240 nm. Why did the pH 4.0 tube show almost no bubble formation? Denaturation strips the active site fast.
-
-After centrifugation at 10,000 rpm for 12 minutes at 4°C, we transferred 200 uL of the supernatant into quartz cuvettes containing 15 mM hydrogen peroxide in Tris-HCl buffer (n = 3 technical replicates per treatment). Absorbance dropped sharply at pH 7.0—averaging 0.142 AU/min—whereas the boiled negative control stayed flat within instrument noise (±0.004 AU). We nearly contaminated replicate two when a micropipette tip clipped the rim, so we discarded that aliquot and repeated the titration fresh.`;
-            document.getElementById('passageInput').value = sample;
-            updateWordCount();
-            runManualScan(true);
-        }
-
-        function clearEditorText() {
-            document.getElementById('passageInput').value = '';
-            currentPassage = '';
-            detectedIssues = [];
-            lastAnalysis = null;
-            lastHumanizeResult = null;
-            previousPassageBeforeHumanize = null;
-            updateWordCount();
-            updateScoreUI(0);
-            resetPillarBars();
-            updateInspectorTabBadges();
-            renderInspector();
-            document.getElementById('whitelistProtectedBanner').classList.add('hidden');
-            document.getElementById('relatedExamplesSection').classList.add('hidden');
-            switchEditorMode('edit');
-            showToast("Cleared editor text.");
-        }
-
-        // ============================================================================
-        // MEMORIZE BAR (LAST 5 SCANS)
-        // ============================================================================
-        function loadMemory() {
-            try {
-                const saved = localStorage.getItem(MEMORY_KEY);
-                if (saved) recentMemory = JSON.parse(saved).slice(0, 5);
-            } catch (e) {
-                recentMemory = [];
-            }
-            renderMemoryBar();
-        }
-
-        function saveToMemory(text, score) {
-            const clean = text.trim();
-            if (!clean) return;
-            recentMemory = recentMemory.filter(item => item.text !== clean);
-            const firstSnippet = clean.replace(/\s+/g, ' ').slice(0, 24);
-            recentMemory.unshift({
-                text: clean,
-                label: clean.length > 24 ? firstSnippet + '...' : firstSnippet,
-                score: score
-            });
-            recentMemory = recentMemory.slice(0, 5);
-            try {
-                localStorage.setItem(MEMORY_KEY, JSON.stringify(recentMemory));
-            } catch (e) {}
-            renderMemoryBar();
-        }
-
-        function renderMemoryBar() {
-            const bar = document.getElementById('recentHistoryBar');
-            if (!bar) return;
-            if (recentMemory.length === 0) {
-                bar.innerHTML = `<span class="text-xs text-cute-cocoa/60 italic px-2">No saved scans yet — paste your text below and click Scan Text!</span>`;
-                return;
-            }
-            bar.innerHTML = recentMemory.map((item, idx) => `
-                <div class="inline-flex items-center bg-cute-cream hover:bg-cute-yellowSoft border border-cute-creamBorder rounded-xl px-2.5 py-1 transition gap-1.5 shrink-0">
-                    <button onclick="loadFromMemory(${idx})" class="flex items-center gap-1.5 text-left text-xs font-bold text-cute-cocoa truncate max-w-[160px]" title="Click to reload this text">
-                        <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-cute-pink text-white">${item.score}%</span>
-                        <span class="truncate">${escapeHtml(item.label)}</span>
-                    </button>
-                    <button onclick="deleteMemoryItem(${idx})" class="text-cute-cocoa/40 hover:text-cute-pink pl-1" title="Remove from memory">
-                        <i class="ph-bold ph-x text-[10px]"></i>
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function loadFromMemory(idx) {
-            if (!recentMemory[idx]) return;
-            document.getElementById('passageInput').value = recentMemory[idx].text;
-            updateWordCount();
-            runManualScan(false);
-        }
-
-        function deleteMemoryItem(idx) {
-            recentMemory.splice(idx, 1);
-            try {
-                localStorage.setItem(MEMORY_KEY, JSON.stringify(recentMemory));
-            } catch (e) {}
-            renderMemoryBar();
-        }
-
-        function clearAllMemory() {
-            recentMemory = [];
-            try {
-                localStorage.removeItem(MEMORY_KEY);
-            } catch (e) {}
-            renderMemoryBar();
-            showToast("Cleared recent scan memory.");
-        }
-
-        // ============================================================================
-        // 5-PILLAR MATHEMATICAL + 4-DIMENSION BILINGUAL ANALYSIS ENGINE
-        // ============================================================================
-
-        // Pillar 1: Mathematical Burstiness (Sentence Length Variance & SD)
-        function calculateBurstinessMetrics(sentences, langMode) {
-            if (sentences.length < 2) {
-                return { stdDev: '—', mean: 0, subScore: 25 };
-            }
-            const lengths = sentences.map(s => {
-                if (langMode === 'zh') {
-                    const zhLen = (s.match(/[\u4e00-\u9fff]/g) || []).length;
-                    const enLen = (s.match(/\b[a-zA-Z0-9]+\b/g) || []).length;
-                    return Math.round((zhLen / 1.7) + enLen);
-                }
-                return (s.match(/\b[a-zA-Z0-9]+(?:[-'][a-zA-Z0-9]+)*\b/g) || []).length +
-                       Math.round((s.match(/[\u4e00-\u9fff]/g) || []).length / 1.7);
-            }).filter(n => n > 0);
-
-            if (lengths.length < 2) return { stdDev: '—', mean: 0, subScore: 25 };
-
-            const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
-            const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
-            const sd = Math.sqrt(variance);
-
-            // Low SD => overly uniform AI rhythm; High SD => natural human burstiness
-            let subScore = 15;
-            if (sd < 3.0) subScore = 92;
-            else if (sd < 4.5) subScore = 76;
-            else if (sd < 6.0) subScore = 54;
-            else if (sd < 7.8) subScore = 30;
-            else subScore = 12;
-
-            // Extra check: AI sweet spot average sentence length (15-23 units) with low SD
-            if (mean >= 15 && mean <= 24 && sd < 5.5) {
-                subScore = Math.min(100, subScore + 10);
-            }
-            return { stdDev: sd.toFixed(1), mean: mean.toFixed(1), subScore };
-        }
-
-        // Pillar 2: Bilingual Cliché & Syntax Rule Engine + 4 Dimensions
-        function calculateRuleEngineMetrics(text, totalUnits) {
-            const matches = [];
-            const dimPenalties = { authenticity: 0, density: 0, directness: 0, trust: 0 };
-            let totalSeverityWeight = 0;
-
-            for (const rule of AI_DETECTION_RULES) {
-                const rx = new RegExp(rule.regex.source, rule.regex.flags);
-                let m;
-                while ((m = rx.exec(text)) !== null) {
-                    let start = m.index;
-                    let matchedStr = m[0];
-
-                    // Preserve leading sentence punctuation/whitespace for boundary-anchored rules
-                    if (rule.hasLeadingBoundary && m[1] !== undefined && m[2] !== undefined) {
-                        start = m.index + m[1].length;
-                        matchedStr = m[2];
-                    }
-
-                    const end = start + matchedStr.length;
-                    const severityLabel = rule.severity >= 4 ? 'high' : (rule.severity === 3 ? 'medium' : 'low');
-
-                    matches.push({
-                        start,
-                        end,
-                        textSpan: matchedStr,
-                        ruleId: rule.id,
-                        category: rule.name,
-                        dimension: rule.dimension,
-                        severity: severityLabel,
-                        severityNum: rule.severity,
-                        whatIsProblem: `觸發規則「${rule.name}」（嚴重度 ${rule.severity}/5）。此類寫作指紋常見於未經潤飾的 AI 生成文本。`,
-                        howToChange: rule.suggestion,
-                        suggestedReplacement: rule.replacementFn ? rule.replacementFn(matchedStr) : '',
-                        howToPrevent: rule.prevent
-                    });
-
-                    totalSeverityWeight += rule.severity;
-                    if (dimPenalties[rule.dimension] !== undefined) {
-                        dimPenalties[rule.dimension] += rule.severity * 4.2;
-                    }
-                    if (rx.lastIndex === m.index) rx.lastIndex++;
-                }
-            }
-
-            const denom = Math.max(totalUnits / 100, 0.65);
-            const weightedDensity = totalSeverityWeight / denom;
-            const subScore = Math.max(0, Math.min(100, Math.round(weightedDensity * 4.5)));
-
-            // Scale dimension health (100 = clean human, 0 = heavy slop)
-            const scaleFactor = Math.min(1.2, 100 / Math.max(totalUnits, 60));
-            const dimensionScores = {
-                authenticity: Math.max(5, Math.min(100, Math.round(100 - dimPenalties.authenticity * scaleFactor))),
-                density: Math.max(5, Math.min(100, Math.round(100 - dimPenalties.density * scaleFactor))),
-                directness: Math.max(5, Math.min(100, Math.round(100 - dimPenalties.directness * scaleFactor))),
-                trust: Math.max(5, Math.min(100, Math.round(100 - dimPenalties.trust * scaleFactor)))
-            };
-
-            return { matches, hitCount: matches.length, subScore, dimensionScores };
-        }
-
-        // Pillar 3: Scientific Jargon Whitelist & Glue-Word Predictability
-        function isWhitelistedStemWord(word) {
-            const lower = word.toLowerCase();
-            if (STEM_WHITELIST_EN.has(lower)) return true;
-            if (STEM_MORPHOLOGY_REGEX_EN.test(word)) return true;
-            return false;
-        }
-
-        function calculateGlueLexicalPredictability(text, sentences, existingMatches, langMode) {
-            const whitelistedSet = new Set();
-
-            // Detect English STEM terms
-            const enTokens = text.match(/\b[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*\b/g) || [];
-            const nonStemTokens = [];
-            for (const tok of enTokens) {
-                if (isWhitelistedStemWord(tok)) {
-                    whitelistedSet.add(tok);
-                } else if (tok.length >= 4 && !/^\d+$/.test(tok)) {
-                    nonStemTokens.push(tok.toLowerCase());
-                }
-            }
-
-            // Detect Chinese STEM terms
-            for (const term of STEM_WHITELIST_ZH) {
-                if (text.includes(term)) {
-                    whitelistedSet.add(term);
-                }
-            }
-
-            // Evaluate glue-word abstract nominalization density (ignoring STEM terms)
-            const sentenceIssues = [];
-            let predictableSentenceCount = 0;
-
-            const sentenceRegex = /[^.!?。！？\n]+(?:[.!?。！？]+|$)/g;
-            let sm;
-            while ((sm = sentenceRegex.exec(text)) !== null) {
-                const sentStr = sm[0].trim();
-                if (sentStr.length < 25) continue;
-                const sStart = sm.index + sm[0].indexOf(sentStr);
-                const sEnd = sStart + sentStr.length;
-
-                const hasAnchor = /\b(18\d\d|19\d\d|20\d\d)\b|\([A-Z][a-z]+.*?\d{4}\)|（[^）]*\d{4}[^）]*）|\b(et\s+al\.|p\.\s*\d+|n\s*=\s*\d+|\d+(\.\d+)?%|\d+\s*(?:nm|mM|uL|mL|mg|rpm|°C|AU))/i.test(sentStr);
-                const hasExpressivePunct = /[;—–?？；]/.test(sentStr);
-
-                const sentWords = sentStr.match(/\b[a-zA-Z]{4,}\b/g) || [];
-                const glueNoms = sentWords.filter(w =>
-                    !isWhitelistedStemWord(w) &&
-                    /(tion|tions|ment|ments|ity|ities|ance|ence|ization|izations)$/i.test(w)
-                );
-
-                const glueAiTerms = (sentStr.match(/\b(implementation|integration|optimization|comprehensive|systematic|framework|frameworks|transformative|sustainable|equitable|stakeholders|methodologies|initiatives|mechanisms|disparities)\b/gi) || [])
-                    .filter(w => !isWhitelistedStemWord(w));
-
-                const overlapsExisting = existingMatches.some(m => !(sEnd <= m.start || sStart >= m.end));
-
-                if (!hasAnchor && !hasExpressivePunct && sentWords.length >= 14 && (glueAiTerms.length >= 2 || glueNoms.length >= 4)) {
-                    predictableSentenceCount++;
-                    if (!overlapsExisting) {
-                        sentenceIssues.push({
-                            start: sStart,
-                            end: sEnd,
-                            textSpan: sentStr,
-                            ruleId: 'glue_nominalization',
-                            category: 'High Glue-Word Nominalization Density',
-                            dimension: 'density',
-                            severity: glueAiTerms.length >= 3 ? 'high' : 'medium',
-                            severityNum: glueAiTerms.length >= 3 ? 4 : 3,
-                            whatIsProblem: `Even after excluding STEM terminology, this sentence packs ${glueNoms.length} abstract nominalizations (${glueNoms.slice(0, 3).join(', ')}) without a concrete citation, date, or metric.`,
-                            howToChange: 'Convert abstract "-tion/-ment" nouns into active verbs with concrete human actors or add an empirical anchor (Author, Year).',
-                            suggestedReplacement: buildHumanizedSentenceSuggestion(sentStr),
-                            howToPrevent: 'Keep non-technical abstract nouns to at most two per sentence and anchor claims with specific measurements or citations.'
-                        });
-                    }
-                }
-            }
-
-            // Compute non-STEM lexical diversity (TTR)
-            const uniqueNonStem = new Set(nonStemTokens).size;
-            const ttr = nonStemTokens.length > 0 ? (uniqueNonStem / nonStemTokens.length) : 0.7;
-
-            let subScore = 18;
-            if (sentences.length > 0) {
-                const ratioScore = (predictableSentenceCount / sentences.length) * 85;
-                const ttrPenalty = (nonStemTokens.length >= 40 && ttr < 0.56) ? 18 : 0;
-                subScore = Math.round(Math.min(100, Math.max(8, ratioScore + ttrPenalty)));
-            }
-
-            // Reward verified scientific lab reports that have strong STEM terminology and zero predictable glue bloat
-            const whitelistedTerms = Array.from(whitelistedSet);
-            if (whitelistedTerms.length >= 3 && predictableSentenceCount === 0) {
-                subScore = Math.min(subScore, 14);
-            }
-
-            return { whitelistedTerms, sentenceIssues, subScore };
-        }
-
-        function buildHumanizedSentenceSuggestion(sentence) {
-            let revised = sentence
-                .replace(/\bThe implementation of\s+/i, "Implementing ")
-                .replace(/\bthe integration of\s+/gi, "integrating ")
-                .replace(/\bthe optimization of\s+/gi, "optimizing ")
-                .replace(/\bfacilitates the development of\b/gi, "helps build")
-                .replace(/\bin order to\b/gi, "to");
-            if (revised === sentence) {
-                const clean = sentence.replace(/\.$/, '');
-                revised = `${clean}—a trend verified in recent empirical records (Author, 2024).`;
-            }
-            return revised;
-        }
-
-        // Pillar 4: Paragraph Symmetry Variance (Coefficient of Variation)
-        function calculateParagraphSymmetry(text) {
-            const paras = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 0);
-            if (paras.length < 2) {
-                return { paraCount: paras.length, cv: 'N/A', subScore: 22 };
-            }
-            const lengths = paras.map(p => p.length);
-            const mean = lengths.reduce((a, b) => a + b, 0) / lengths.length;
-            const variance = lengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / lengths.length;
-            const sd = Math.sqrt(variance);
-            const cv = mean > 0 ? sd / mean : 0;
-
-            let subScore = 15;
-            if (cv < 0.08) subScore = 92;
-            else if (cv < 0.16) subScore = 74;
-            else if (cv < 0.26) subScore = 48;
-            else if (cv < 0.38) subScore = 25;
-            else subScore = 10;
-
-            return { paraCount: paras.length, cv: cv.toFixed(2), subScore };
-        }
-
-        // Pillar 5: Readability Complexity (Flesch-Kincaid / CJK Density) + Grammar API
-        function countEnglishSyllables(word) {
-            const w = word.toLowerCase().replace(/[^a-z]/g, '');
-            if (w.length <= 3) return 1;
-            const trimmed = w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
-            const matches = trimmed.match(/[aeiouy]{1,2}/g);
-            return matches ? Math.max(1, matches.length) : 1;
-        }
-
-        function calculateComplexityGrade(text, sentences, langMode) {
-            if (sentences.length === 0) return { grade: 8.0, label: 'FK 8.0' };
-            if (langMode === 'zh') {
-                const totalChars = (text.match(/[\u4e00-\u9fff]/g) || []).length;
-                const avgSentChars = totalChars / Math.max(sentences.length, 1);
-                const commaCount = (text.match(/[，、；]/g) || []).length;
-                const clausesPerSent = (commaCount / Math.max(sentences.length, 1)) + 1;
-                const grade = Math.min(18, Math.max(6, (avgSentChars * 0.24) + (clausesPerSent * 2.1)));
-                return { grade: Number(grade.toFixed(1)), label: `CJK ${grade.toFixed(1)}` };
-            }
-            const words = text.match(/\b[a-zA-Z]+\b/g) || [];
-            if (words.length === 0) return { grade: 8.0, label: 'FK 8.0' };
-            const totalSyllables = words.reduce((acc, w) => acc + countEnglishSyllables(w), 0);
-            const fk = 0.39 * (words.length / Math.max(sentences.length, 1)) + 11.8 * (totalSyllables / words.length) - 15.59;
-            const clamped = Math.max(4, Math.min(20, fk));
-            return { grade: Number(clamped.toFixed(1)), label: `FK ${clamped.toFixed(1)}` };
-        }
-
-        function runLocalGrammarHeuristics(text) {
-            let errors = 0;
-            if (/\s{2,}/.test(text)) errors++;
-            if (/[a-z][.!?][A-Z]/.test(text)) errors++;
-            if (/\b(\w+)\s+\1\b/i.test(text)) errors++;
-            if (/\bteh\b|\brecieve\b|\bseperate\b|\boccured\b|\bwich\b|\buntill\b/i.test(text)) errors += 2;
-            if (/[,;]\s*(however|therefore|thus)\s*,/i.test(text)) errors++; // comma splice quirk
-            if (/—|\.\.\.|!|\?/.test(text)) errors++; // natural expressive human punctuation
-            return { errorCount: errors, source: 'Local Heuristic' };
-        }
-
-        async function checkGrammarWithApi(text, langMode) {
-            const statusEl = document.getElementById('grammarApiStatus');
-            if (statusEl) statusEl.textContent = 'Checking LanguageTool API...';
-
-            const snippet = text.slice(0, 1800);
-            const apiLang = langMode === 'zh' ? 'zh-CN' : 'en-US';
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3200);
-
-            try {
-                const body = new URLSearchParams({ text: snippet, language: apiLang });
-                const resp = await fetch('https://api.languagetool.org/v2/check', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: body.toString(),
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-                if (!resp.ok) throw new Error('API non-200');
-                const data = await resp.json();
-                const realErrors = (data.matches || []).filter(m => {
-                    const cat = m.rule?.category?.id || '';
-                    return cat !== 'WHITESPACE' && cat !== 'STYLE';
-                }).length;
-                if (statusEl) statusEl.textContent = `LanguageTool API ✓ (${realErrors} errs)`;
-                return { errorCount: realErrors, source: 'LanguageTool API' };
-            } catch (err) {
-                clearTimeout(timeoutId);
-                const fallback = runLocalGrammarHeuristics(text);
-                if (statusEl) statusEl.textContent = `Local Grammar Check (${fallback.errorCount} quirks)`;
-                return fallback;
-            }
-        }
-
-        function evaluateGrammarAndComplexityPillar(complexityGrade, errorCount) {
-            // High post-graduate density + exactly 0 errors => suspiciously sterile AI syntax
-            if (complexityGrade >= 13.0 && errorCount === 0) return 90;
-            if (complexityGrade >= 11.5 && errorCount === 0) return 72;
-            if (complexityGrade >= 13.0 && errorCount === 1) return 48;
-            if (errorCount >= 2) return 14;
-            if (complexityGrade < 10.0) return 22;
-            return 38;
-        }
-
-        // Main Orchestrator (async)
-        async function analyzeAcademicPassage(text) {
-            const langProfile = detectLanguageProfile(text);
-            const sentences = splitIntoSentences(text);
-
-            const burstiness = calculateBurstinessMetrics(sentences, langProfile.mode);
-            const ruleMetrics = calculateRuleEngineMetrics(text, langProfile.totalUnits);
-            const glueMetrics = calculateGlueLexicalPredictability(text, sentences, ruleMetrics.matches, langProfile.mode);
-            const symmetry = calculateParagraphSymmetry(text);
-            const complexity = calculateComplexityGrade(text, sentences, langProfile.mode);
-            const grammarCheck = await checkGrammarWithApi(text, langProfile.mode);
-            const grammarSubScore = evaluateGrammarAndComplexityPillar(complexity.grade, grammarCheck.errorCount);
-
-            // Merge & de-overlap highlighted issues
-            const combined = [...ruleMetrics.matches, ...glueMetrics.sentenceIssues].sort((a, b) => {
-                if (a.start !== b.start) return a.start - b.start;
-                return b.severityNum - a.severityNum;
-            });
-            const nonOverlapping = [];
-            let lastEnd = -1;
-            for (const item of combined) {
-                if (item.start >= lastEnd) {
-                    nonOverlapping.push(item);
-                    lastEnd = item.end;
-                }
-            }
-
-            // Final Weighted AI Probability
-            let overallScore = Math.round(
-                (burstiness.subScore * 0.23) +
-                (ruleMetrics.subScore * 0.30) +
-                (glueMetrics.subScore * 0.17) +
-                (symmetry.subScore * 0.15) +
-                (grammarSubScore * 0.15)
-            );
-
-            // Boost if heavy explicit AI-slop rules triggered
-            if (ruleMetrics.subScore >= 75 && overallScore < 65) {
-                overallScore = Math.round((overallScore + ruleMetrics.subScore) / 2);
-            }
-
-            // Protect verified STEM lab reports from false positives
-            if (glueMetrics.whitelistedTerms.length >= 4 && ruleMetrics.hitCount === 0 && burstiness.subScore <= 40) {
-                overallScore = Math.min(overallScore, 18);
-            }
-
-            overallScore = Math.max(0, Math.min(100, overallScore));
-
-            return {
-                overallScore,
-                langProfile,
-                burstiness,
-                ruleMetrics,
-                glueMetrics,
-                symmetry,
-                complexity,
-                grammarCheck,
-                grammarSubScore,
-                dimensionScores: ruleMetrics.dimensionScores,
-                whitelistedTerms: glueMetrics.whitelistedTerms,
-                issues: nonOverlapping
-            };
-        }
-
-        // Main Scan Trigger (async)
-        async function runManualScan(shouldSave = true) {
-            const inputEl = document.getElementById('passageInput');
-            const input = (inputEl?.value || '').trim();
-            if (!input) {
-                showToast("Please paste an academic passage first!");
-                inputEl?.focus();
-                return;
-            }
-            currentPassage = input;
-
-            const scanBtn = document.getElementById('scanTextBtn');
-            const originalBtnHtml = scanBtn ? scanBtn.innerHTML : '';
-            if (scanBtn) {
-                scanBtn.disabled = true;
-                scanBtn.innerHTML = `<i class="ph-bold ph-spinner animate-spin"></i> Scanning...`;
-            }
-
-            try {
-                const analysis = await analyzeAcademicPassage(currentPassage);
-
-                lastAnalysis = analysis;
-                detectedIssues = analysis.issues;
-                activeIssueIndex = 0;
-                computeHumanizePreview();
-
-                if (shouldSave) {
-                    saveToMemory(currentPassage, analysis.overallScore);
-                }
-
-                updateScoreUI(analysis.overallScore);
-                updateDimensionScoresUI(analysis.dimensionScores);
-                updatePillarBreakdownUI(analysis);
-                updateInspectorTabBadges();
-                renderWhitelistBanner(analysis.whitelistedTerms);
-                renderAnnotatedText();
-                renderInspector();
-                renderRelatedExamples(currentPassage, analysis.langProfile.mode);
-                switchEditorMode('highlight');
-                showToast(`Scan complete: ${analysis.overallScore}% AI Probability`);
-            } catch (err) {
-                console.error('Scan error:', err);
-                showToast("An error occurred while scanning. Please try again.");
-            } finally {
-                if (scanBtn) {
-                    scanBtn.disabled = false;
-                    scanBtn.innerHTML = originalBtnHtml;
-                }
-            }
-        }
-
-        // ============================================================================
-        // SCORE, DIMENSION, PILLAR & ANNOTATED TEXT UI UPDATERS
-        // ============================================================================
-        function updateScoreUI(score) {
-            const circle = document.getElementById('scoreGaugeCircle');
-            const pctText = document.getElementById('scorePercentageText');
-            const badge = document.getElementById('verdictBadge');
-
-            if (!circle || !pctText || !badge) return;
-
-            const circumference = 314.16;
-            const offset = circumference - (score / 100) * circumference;
-            circle.style.strokeDashoffset = offset;
-            pctText.textContent = `${score}%`;
-
-            if (score >= 60) {
-                circle.setAttribute('stroke', '#c86d81');
-                badge.textContent = 'High AI Probability 🐾';
-                badge.className = 'inline-block px-3 py-0.5 rounded-full text-[11px] font-bold bg-[#f9dfe4] text-[#6e2d3b] border border-[#e3b8c1]';
-            } else if (score >= 28) {
-                circle.setAttribute('stroke', '#d49e3d');
-                badge.textContent = 'Mixed / Moderate AI Signal 🐶';
-                badge.className = 'inline-block px-3 py-0.5 rounded-full text-[11px] font-bold bg-cute-yellowSoft text-[#6b4e16] border border-[#ebd68f]';
-            } else if (currentPassage) {
-                circle.setAttribute('stroke', '#4d9e7d');
-                badge.textContent = 'Human Writing Style ✨';
-                badge.className = 'inline-block px-3 py-0.5 rounded-full text-[11px] font-bold bg-[#e3f5ec] text-[#225741] border border-[#b7e0cc]';
-            } else {
-                circle.setAttribute('stroke', '#c86d81');
-                badge.textContent = 'Ready to Scan';
-                badge.className = 'inline-block px-3 py-0.5 rounded-full text-[11px] font-bold bg-cute-cream text-cute-cocoa border border-cute-creamBorder';
-            }
-        }
-
-        function setDimensionColor(el, val) {
-            if (!el) return;
-            el.textContent = `${val}`;
-            if (val >= 75) el.className = 'font-mono text-sm font-extrabold text-[#256346]';
-            else if (val >= 45) el.className = 'font-mono text-sm font-extrabold text-[#b37d1e]';
-            else el.className = 'font-mono text-sm font-extrabold text-cute-pink';
-        }
-
-        function updateDimensionScoresUI(dims) {
-            if (!dims) return;
-            setDimensionColor(document.getElementById('dimAuthenticityVal'), dims.authenticity);
-            setDimensionColor(document.getElementById('dimDensityVal'), dims.density);
-            setDimensionColor(document.getElementById('dimDirectnessVal'), dims.directness);
-            setDimensionColor(document.getElementById('dimTrustVal'), dims.trust);
-        }
-
-        function setPillarBar(barId, detailId, score, detailText) {
-            const bar = document.getElementById(barId);
-            const det = document.getElementById(detailId);
-            if (det) det.textContent = detailText;
-            if (bar) {
-                bar.style.width = `${Math.max(0, Math.min(100, score))}%`;
-                if (score >= 60) bar.className = 'h-full bg-cute-pink transition-all duration-500';
-                else if (score >= 30) bar.className = 'h-full bg-[#d49e3d] transition-all duration-500';
-                else bar.className = 'h-full bg-[#4d9e7d] transition-all duration-500';
-            }
-        }
-
-        function updatePillarBreakdownUI(analysis) {
-            setPillarBar('p1Bar', 'p1Detail', analysis.burstiness.subScore, `SD: ${analysis.burstiness.stdDev} | ${analysis.burstiness.subScore}/100`);
-            setPillarBar('p2Bar', 'p2Detail', analysis.ruleMetrics.subScore, `${analysis.ruleMetrics.hitCount} hits | ${analysis.ruleMetrics.subScore}/100`);
-            setPillarBar('p3Bar', 'p3Detail', analysis.glueMetrics.subScore, `${analysis.whitelistedTerms.length} STEM saved | ${analysis.glueMetrics.subScore}/100`);
-            setPillarBar('p4Bar', 'p4Detail', analysis.symmetry.subScore, `CV: ${analysis.symmetry.cv} | ${analysis.symmetry.subScore}/100`);
-            setPillarBar('p5Bar', 'p5Detail', analysis.grammarSubScore, `${analysis.complexity.label} | ${analysis.grammarCheck.errorCount} errs | ${analysis.grammarSubScore}/100`);
-        }
-
-        function resetPillarBars() {
-            setPillarBar('p1Bar', 'p1Detail', 0, 'SD: — | 0/100');
-            setPillarBar('p2Bar', 'p2Detail', 0, '0 hits | 0/100');
-            setPillarBar('p3Bar', 'p3Detail', 0, '0 STEM saved | 0/100');
-            setPillarBar('p4Bar', 'p4Detail', 0, 'CV: — | 0/100');
-            setPillarBar('p5Bar', 'p5Detail', 0, 'FK: — | 0 errs | 0/100');
-
-            ['dimAuthenticityVal', 'dimDensityVal', 'dimDirectnessVal', 'dimTrustVal'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.textContent = '—';
-                    el.className = 'font-mono text-sm font-extrabold text-cute-cocoa';
-                }
-            });
-            const statusEl = document.getElementById('grammarApiStatus');
-            if (statusEl) statusEl.textContent = 'Awaiting scan';
-        }
-
-        function renderWhitelistBanner(terms) {
-            const banner = document.getElementById('whitelistProtectedBanner');
-            const listEl = document.getElementById('whitelistTermsList');
-            if (!banner || !listEl) return;
-
-            if (!terms || terms.length === 0) {
-                banner.classList.add('hidden');
-                return;
-            }
-            const shown = terms.slice(0, 12).map(t => escapeHtml(t)).join(', ');
-            const more = terms.length > 12 ? ` (+${terms.length - 12} more)` : '';
-            listEl.textContent = ` Protected ${terms.length} technical term${terms.length === 1 ? '' : 's'} from lexical predictability penalties (${shown}${more}).`;
-            banner.classList.remove('hidden');
-        }
-
-        function renderAnnotatedText() {
-            const container = document.getElementById('annotatedTextBody');
-            if (!container) return;
-
-            if (detectedIssues.length === 0) {
-                container.innerHTML = `
-                    <div class="p-3.5 mb-4 rounded-xl bg-[#e3f5ec] border border-[#b7e0cc] text-[#225741] text-xs font-sans font-bold flex items-center gap-2">
-                        <i class="ph-fill ph-check-circle text-lg"></i>
-                        <span>Great job! No high-risk AI clichés or robotic sentence patterns were flagged in your passage.</span>
-                    </div>
-                    <p class="whitespace-pre-wrap">${escapeHtml(currentPassage)}</p>
-                `;
-                return;
-            }
-
-            let html = '';
-            let cursor = 0;
-            detectedIssues.forEach((issue, idx) => {
-                html += escapeHtml(currentPassage.slice(cursor, issue.start));
-                const sevClass = issue.severity === 'high'
-                    ? 'highlight-high'
-                    : (issue.severity === 'medium' ? 'highlight-medium' : 'highlight-low');
-                const activeClass = idx === activeIssueIndex ? 'active-span' : '';
-                html += `<span onclick="selectIssue(${idx})" class="highlight-span ${sevClass} ${activeClass}">${escapeHtml(issue.textSpan)}<sup class="ml-0.5 font-sans font-bold text-[10px] opacity-75">[${idx + 1}]</sup></span>`;
-                cursor = issue.end;
-            });
-            html += escapeHtml(currentPassage.slice(cursor));
-            container.innerHTML = `<div class="whitespace-pre-wrap">${html}</div>`;
-        }
-
-        function selectIssue(idx) {
-            activeIssueIndex = idx;
-            inspectorTab = 'issue';
-            syncInspectorTabUI();
-            document.querySelectorAll('.highlight-span').forEach((el, i) => {
-                if (i === idx) el.classList.add('active-span');
-                else el.classList.remove('active-span');
-            });
-            renderInspector();
-        }
-
-        function navigateIssue(dir) {
-            if (detectedIssues.length === 0) return;
-            activeIssueIndex = (activeIssueIndex + dir + detectedIssues.length) % detectedIssues.length;
-            selectIssue(activeIssueIndex);
-        }
-
-        // ============================================================================
-        // SAFE AI HUMANIZER & IMPROVEMENT ENGINE (Integrated from aiHumanizerEngine.js)
-        // ============================================================================
-
-        /**
-         * 1. 受保護內容抽離與還原（確保代碼、URL、引文原封不動）
-         */
-        function extractProtectedSegments(text) {
-            const store = [];
-            const pushToken = (match) => {
-                const token = `___PROTECTED_SEG_${store.length}___`;
-                store.push(match);
-                return token;
-            };
-
-            const safeText = text
-                .replace(/\x60{3}[\s\S]*?\x60{3}/g, pushToken)   // 多行程式碼塊
-                .replace(/\x60[^\x60\n]+\x60/g, pushToken)       // 行內代碼
-                .replace(/https?:\/\/[^\s)]+/g, pushToken)       // 網址 URL
-                .replace(/「[^」\n]+」|“[^”\n]+”/g, pushToken);  // 完整中文引文
-
-            return {
-                safeText,
-                protectedCount: store.length,
-                restore: (processedText) =>
-                    processedText.replace(/___PROTECTED_SEG_(\d+)___/g, (_, idx) => store[Number(idx)])
-            };
-        }
-
-        /**
-         * 2. 確定性安全改寫規則集
-         */
-        const SAFE_REWRITE_RULES = [
-            // --- A. 排版與客服腔清理 ---
-            {
-                id: 'clean_zh_customer_service',
-                label: '移除 AI 客服腔與無意義問候',
-                academicSafe: true,
-                regex: /(?:^|\n)\s*(?:好問題[！!]?|好问题[！!]?|當然可以[！!]?|当然可以[！!]?)\s*/g,
-                replace: '\n'
-            },
-            {
-                id: 'clean_zh_closing_fluff',
-                label: '移除中文套話收尾與對話殘留',
-                academicSafe: true,
-                regex: /(?:總而言之[，,]?\s*讓我們拭目以待[，,]?\s*期待更多可能[。！!]?|总而言之[，,]?\s*让我们拭目以待[，,]?\s*期待更多可能[。！!]?|希望這對您有幫助[！!。]?|希望这对您有帮助[！!。]?)/g,
-                replace: ''
-            },
-            {
-                id: 'clean_emoji_headings',
-                label: '移除標題或段首裝飾性 Emoji',
-                academicSafe: true,
-                regex: /(^|\n)(\s*#{0,6}\s*)[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]+\s*/gu,
-                replace: '$1$2'
-            },
-            {
-                id: 'clean_zh_quotes',
-                label: '將中文正文內的英文直引號統一為中文引號',
-                academicSafe: true,
-                regex: /([\u4e00-\u9fa5])"([^"\n]{1,40})"([\u4e00-\u9fa5，。！？；：])/g,
-                replace: '$1「$2」$3'
-            },
-            {
-                id: 'clean_mid_bold',
-                label: '移除句中裝飾性粗體（保留原有文字與括號說明）',
-                academicSafe: false,
-                regex: /([^\n#*-]\s+)\*\*([^*\n]{2,25})\*\*(\s+[^\n])/g,
-                replace: '$1$2$3'
-            },
-
-            // --- B. 中文冗餘句式與套話壓縮 ---
-            {
-                id: 'fix_zh_throat_clearing',
-                label: '刪除中文起跑式鋪墊',
-                academicSafe: true,
-                regex: /(?:接下來讓我們深入看看[^。！？\n]{0,18}[。！？]|接下来让我们深入看看[^。！？\n]{0,18}[。！？]|值得注意的是[，,]?|需要指出的是[，,]?|不要誤會[，,]我並不是在[^。！？\n]{1,15}[。！？]\s*(?:我想說的是[，,]?)?|不要误会[，,]我并不是在[^。！？\n]{1,15}[。！？]\s*(?:我想说的是[，,]?)?)/g,
-                replace: ''
-            },
-            {
-                id: 'fix_zh_jinxing_verb',
-                label: '精簡冗餘的「進行＋動詞」結構',
-                academicSafe: false,
-                regex: /對([^，。！？]{1,12})[進进]行(全面|深入|詳細|详细|系統|系统|徹底|彻底)?(分析|測試|测试|調整|调整|評估|评估|優化|优化|檢查|检查|處理|处理)/g,
-                replace: '$2$3$1'
-            },
-            {
-                id: 'fix_zh_jinxing_simple',
-                label: '精簡直接相連的「進行＋動詞」',
-                academicSafe: true,
-                regex: /[進进]行(全面|深入|詳細|详细)?(測試|测试|調整|调整|評估|评估|優化|优化|檢查|检查|修改|比較|比较)/g,
-                replace: '$1$2'
-            },
-            {
-                id: 'fix_zh_stacked_qualifiers',
-                label: '合併重複堆疊的限定詞（保留原本不確定度）',
-                academicSafe: true,
-                regex: /(?:也許可能|也许可能|大概也許|大概也许|或許可能|或许可能)/g,
-                replace: '可能'
-            },
-            {
-                id: 'fix_zh_puffery_tail',
-                label: '刪除句尾無實質資訊的意義拔高（「彰顯了……」）',
-                academicSafe: true,
-                regex: /[，,]\s*(?:充分)?(?:彰顯了|彰显了|體現了|体现了)[^，。！？\n]{2,18}(?:不懈追求|持續追求|持续追求|重大價值|重大价值|深遠意義|深远意义|堅定承諾|坚定承諾|坚定承诺)/g,
-                replace: ''
-            },
-            {
-                id: 'fix_zh_background_opener',
-                label: '移除空泛的時代背景開頭',
-                academicSafe: true,
-                regex: /(?:在[^，。！？]{2,14}(?:不斷發展|不断发展|快速發展|快速发展)的(?:時代背景|时代背景|大背景)下[，,]?\s*)/g,
-                replace: ''
-            },
-
-            // --- C. 英文起跑式鋪墊、廢話與商業套話替換 ---
-            {
-                id: 'fix_en_throat_clearing',
-                label: '移除英文起跑式鋪墊 (Throat-Clearing)',
-                academicSafe: true,
-                regex: /(^|[.!?]\s+)(?:Here'?s the thing:\s*|Let me be clear:\s*|The uncomfortable truth is(?: that)?\s*|The truth is,\s*|The reality is(?: that)?\s*|It'?s worth noting(?: that)?\s*|It'?s important to note(?: that)?\s*|It is (?:worth|important to) (?:noting|note)(?: that)?\s*|I'?ll be honest,\s*|Let'?s dive in[.!]\s*)/gi,
-                replace: '$1'
-            },
-            {
-                id: 'fix_en_emphasis_crutches',
-                label: '刪除英文強調拐杖 (Emphasis Crutches)',
-                academicSafe: true,
-                regex: /\s*(?:Full stop\.|Let that sink in\.|Make no mistake,\s*)/gi,
-                replace: ' '
-            },
-            {
-                id: 'fix_en_summary_openers',
-                label: '移除機械化英文總結起手式',
-                academicSafe: false,
-                regex: /(^|[.!?]\s+)(?:In conclusion,\s*|Ultimately,\s*|Overall,\s*|At the end of the day,\s*)/gi,
-                replace: '$1'
-            },
-            {
-                id: 'fix_en_banned_replacements',
-                label: '將英文 AI 高頻詞與商業行話替換為平實詞彙',
-                academicSafe: true,
-                regex: /\b(utilize|utilizes|utilized|utilizing|leverage|leverages|leveraged|leveraging|facilitate|facilitates|facilitated|delve into|delving into|unpack|in order to|moving forward|deep dive)\b/gi,
-                replace: (match) => {
-                    const map = {
-                        'utilize': 'use', 'utilizes': 'uses', 'utilized': 'used', 'utilizing': 'using',
-                        'leverage': 'use', 'leverages': 'uses', 'leveraged': 'used', 'leveraging': 'using',
-                        'facilitate': 'help', 'facilitates': 'helps', 'facilitated': 'helped',
-                        'delve into': 'examine', 'delving into': 'examining', 'unpack': 'explain',
-                        'in order to': 'to', 'moving forward': 'next', 'deep dive': 'analysis'
-                    };
-                    const lower = match.toLowerCase();
-                    const replacement = map[lower] || match;
-                    return matchCase(match, replacement);
-                }
-            },
-            {
-                id: 'fix_en_weak_verb_phrases',
-                label: '以直接動詞取代冗長動詞短語',
-                academicSafe: true,
-                regex: /\b(made a decision to|has the ability to|have the ability to)\b/gi,
-                replace: (match) => {
-                    const lower = match.toLowerCase();
-                    if (lower === 'made a decision to') return matchCase(match, 'decided to');
-                    return matchCase(match, 'can');
-                }
-            },
-            {
-                id: 'fix_en_empty_adverbs',
-                label: '刪除英文空泛副詞（非學術模式）',
-                academicSafe: false,
-                regex: /\b(?:literally|fundamentally|inherently|crucially|importantly|truly|genuinely)\s+/gi,
-                replace: ''
-            },
-            {
-                id: 'fix_em_dash_clusters',
-                label: '將過多破折號轉為自然標點（逗號／句號）',
-                academicSafe: true,
-                regex: /\s*(?:—|——)\s*/g,
-                replace: (match, offset, fullStr) => {
-                    const around = fullStr.slice(Math.max(0, offset - 2), offset + match.length + 2);
-                    return /[\u4e00-\u9fa5]/.test(around) ? '，' : ', ';
-                }
-            }
-        ];
-
-        /**
-         * 3. 純代碼不應自動捏造、僅需提示人工覆核的語義問題
-         */
-        const MANUAL_REVIEW_CHECKS = [
-            {
-                name: '模糊權威歸因 (Weasel Attribution)',
-                regex: /\b(experts agree|studies show|widely regarded as|many argue|industry reports suggest)\b|(?:未具名的)?[專专]家(?:普遍)?[認认][為为]|業內人士普遍指出|业内人士普遍指出|研究表明|數據顯示|数据显示/gi,
-                advice: '純代碼不會為您捏造文獻來源，請手動補上具名來源（作者與年份），或刪除該籠統歸因。'
-            },
-            {
-                name: '無生命主語假施事 (False Agency)',
-                regex: /\b(the decision emerges|the data tells us|the market rewards|the culture shifts|the conversation moves toward)\b/gi,
-                advice: '請手動補上真正執行動作的人、研究團隊或組織，將句子改為主動語態。'
-            },
-            {
-                name: '空泛宣稱 (Vague Declaratives)',
-                regex: /\b(the implications are significant|the reasons are structural|the stakes are high|the consequences are real)\b/gi,
-                advice: '請將抽象形容改寫為具體的機制、量化數據或實際後果。'
-            }
-        ];
-
-        /**
-         * 修復刪除句首短語後的英文首字母大小寫與多餘空白
-         */
-        function normalizeTypography(text) {
-            return text
-                .replace(/([.!?]\s+)([a-z])/g, (_, sep, char) => sep + char.toUpperCase())
-                .replace(/^(\s*)([a-z])/gm, (_, lead, char) => lead + char.toUpperCase())
-                .replace(/[ \t]{2,}/g, ' ')
-                .replace(/([，。！？；])[\s]+/g, '$1')
-                .replace(/\n{3,}/g, '\n\n')
-                .trim();
-        }
-
-        /**
-         * 主安全改寫函數（去 AI 味 + What Changed + Manual Review）
-         */
-        function humanizeText(rawText, options = { academicMode: true, keepMaxEmDashes: 1 }) {
-            const { safeText, protectedCount, restore } = extractProtectedSegments(rawText);
-            let workingText = safeText;
-            const whatChanged = [];
-
-            for (const rule of SAFE_REWRITE_RULES) {
-                if (options.academicMode && !rule.academicSafe) continue;
-
-                if (rule.id === 'fix_em_dash_clusters') {
-                    const dashCount = (workingText.match(/—|——/g) || []).length;
-                    if (dashCount <= (options.keepMaxEmDashes ?? 1)) continue;
-                }
-
-                let hitCount = 0;
-                const before = workingText;
-
-                workingText = workingText.replace(rule.regex, (...args) => {
-                    hitCount++;
-                    return typeof rule.replace === 'function' ? rule.replace(...args) : rule.replace;
-                });
-
-                if (hitCount > 0 && workingText !== before) {
-                    whatChanged.push({
-                        ruleId: rule.id,
-                        description: rule.label,
-                        count: hitCount,
-                        academicSafe: rule.academicSafe
-                    });
-                }
-            }
-
-            const manualReview = [];
-            for (const check of MANUAL_REVIEW_CHECKS) {
-                const matches = workingText.match(check.regex);
-                if (matches && matches.length > 0) {
-                    manualReview.push({
-                        issue: check.name,
-                        matches: [...new Set(matches)],
-                        advice: check.advice
-                    });
-                }
-            }
-
-            const cleanedText = restore(normalizeTypography(workingText));
-
-            return {
-                cleanedText,
-                changed: cleanedText !== rawText.trim(),
-                protectedCount,
-                whatChanged,
-                manualReview
-            };
-        }
-
-        /**
-         * 快速本地預估改寫後的 AI 機率（不重複呼叫外部語法 API）
-         */
-        function estimateProjectedAiScore(cleanedText, baseAnalysis) {
-            if (!cleanedText || !baseAnalysis) return 0;
-            const langProfile = detectLanguageProfile(cleanedText);
-            const sentences = splitIntoSentences(cleanedText);
-            const burstiness = calculateBurstinessMetrics(sentences, langProfile.mode);
-            const ruleMetrics = calculateRuleEngineMetrics(cleanedText, langProfile.totalUnits);
-            const glueMetrics = calculateGlueLexicalPredictability(cleanedText, sentences, ruleMetrics.matches, langProfile.mode);
-            const symmetry = calculateParagraphSymmetry(cleanedText);
-            const complexity = calculateComplexityGrade(cleanedText, sentences, langProfile.mode);
-            const grammarSubScore = evaluateGrammarAndComplexityPillar(complexity.grade, baseAnalysis.grammarCheck.errorCount);
-
-            let projected = Math.round(
-                (burstiness.subScore * 0.23) +
-                (ruleMetrics.subScore * 0.30) +
-                (glueMetrics.subScore * 0.17) +
-                (symmetry.subScore * 0.15) +
-                (grammarSubScore * 0.15)
-            );
-            if (ruleMetrics.subScore >= 75 && projected < 65) {
-                projected = Math.round((projected + ruleMetrics.subScore) / 2);
-            }
-            if (glueMetrics.whitelistedTerms.length >= 4 && ruleMetrics.hitCount === 0 && burstiness.subScore <= 40) {
-                projected = Math.min(projected, 18);
-            }
-            return Math.max(0, Math.min(100, projected));
-        }
-
-        /**
-         * 根據五柱數學分析產生針對性的結構降 AI 率策略
-         */
-        function buildPillarImprovementTips(analysis) {
-            if (!analysis) return [];
-            const tips = [];
-            if (analysis.burstiness.subScore >= 55) {
-                tips.push({
-                    title: `拉開句長變化 (目前 SD: ${analysis.burstiness.stdDev})`,
-                    detail: '句長過於均勻。建議將其中一兩句拆成 6–10 字的精簡短句或設問句，並將相關證據合併成較長的分析句。'
-                });
-            }
-            if (analysis.symmetry.subScore >= 55 && analysis.symmetry.paraCount >= 2) {
-                tips.push({
-                    title: `打破段落對稱 (目前 CV: ${analysis.symmetry.cv})`,
-                    detail: '各段字數過於接近。可將核心數據段擴寫並補上案例，把過場段精簡為 2–3 句。'
-                });
-            }
-            if (analysis.grammarSubScore >= 60) {
-                tips.push({
-                    title: `降低工整度並補上實證錨點 (${analysis.complexity.label})`,
-                    detail: '語法高度完美且句構緊密。加入具體年份、樣本數 (n = ...)、作者引文或一處自然的破折號／分號轉折可顯著降低 AI 率。'
-                });
-            }
-            return tips;
-        }
-
-        function computeHumanizePreview() {
-            if (!currentPassage) {
-                lastHumanizeResult = null;
-                return;
-            }
-            const res = humanizeText(currentPassage, {
-                academicMode: humanizeAcademicMode,
-                keepMaxEmDashes: 1
-            });
-            res.projectedScore = estimateProjectedAiScore(res.cleanedText, lastAnalysis);
-            res.pillarTips = buildPillarImprovementTips(lastAnalysis);
-            lastHumanizeResult = res;
-        }
-
-        function syncInspectorTabUI() {
-            const issueBtn = document.getElementById('inspectorTabIssueBtn');
-            const improveBtn = document.getElementById('inspectorTabImproveBtn');
-            const navWrap = document.getElementById('inspectorIssueNav');
-
-            if (!issueBtn || !improveBtn) return;
-
-            if (inspectorTab === 'improve') {
-                improveBtn.className = 'flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center justify-center gap-1.5';
-                issueBtn.className = 'flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center justify-center gap-1.5';
-                if (navWrap) navWrap.classList.add('opacity-40', 'pointer-events-none');
-            } else {
-                issueBtn.className = 'flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center justify-center gap-1.5';
-                improveBtn.className = 'flex-1 py-1.5 px-2.5 rounded-xl text-[11px] font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center justify-center gap-1.5';
-                if (navWrap) navWrap.classList.remove('opacity-40', 'pointer-events-none');
-            }
-        }
-
-        function updateInspectorTabBadges() {
-            const issuePill = document.getElementById('inspectorIssueCountPill');
-            const improveBadge = document.getElementById('inspectorImproveBadge');
-            if (issuePill) issuePill.textContent = String(detectedIssues.length);
-
-            if (improveBadge) {
-                const actionCount = lastHumanizeResult
-                    ? (lastHumanizeResult.whatChanged.length + lastHumanizeResult.manualReview.length + (lastHumanizeResult.pillarTips ? lastHumanizeResult.pillarTips.length : 0))
-                    : 0;
-                if (actionCount > 0) {
-                    improveBadge.textContent = String(actionCount);
-                    improveBadge.classList.remove('hidden');
-                } else {
-                    improveBadge.classList.add('hidden');
-                }
-            }
-        }
-
-        function switchInspectorTab(tab) {
-            inspectorTab = tab;
-            syncInspectorTabUI();
-            renderInspector();
-        }
-
-        function toggleHumanizeAcademicMode(isAcademic) {
-            humanizeAcademicMode = isAcademic;
-            computeHumanizePreview();
-            updateInspectorTabBadges();
-            renderInspector();
-        }
-
-        function applyHumanizedRewrite() {
-            if (!lastHumanizeResult || !lastHumanizeResult.changed) {
-                showToast("目前文章無可自動改寫項目。");
-                return;
-            }
-            previousPassageBeforeHumanize = currentPassage;
-            currentPassage = lastHumanizeResult.cleanedText;
-            document.getElementById('passageInput').value = currentPassage;
-            updateWordCount();
-            runManualScan(true);
-            showToast("已套用安全去 AI 味改寫並重新計算 AI 率！");
-        }
-
-        function undoHumanizedRewrite() {
-            if (!previousPassageBeforeHumanize) return;
-            currentPassage = previousPassageBeforeHumanize;
-            previousPassageBeforeHumanize = null;
-            document.getElementById('passageInput').value = currentPassage;
-            updateWordCount();
-            runManualScan(false);
-            showToast("已復原至改寫前的原文。");
-        }
-
-        function copyHumanizedPreview() {
-            if (!lastHumanizeResult || !lastHumanizeResult.cleanedText) return;
-            const temp = document.createElement('textarea');
-            temp.value = lastHumanizeResult.cleanedText;
-            temp.style.position = 'fixed';
-            temp.style.opacity = '0';
-            document.body.appendChild(temp);
-            temp.select();
-            try {
-                document.execCommand('copy');
-                showToast("已複製安全改寫版本！");
-            } catch (e) {
-                showToast("複製失敗，請手動選取文字複製。");
-            }
-            document.body.removeChild(temp);
-        }
-
-        function renderInspector() {
-            syncInspectorTabUI();
-            if (inspectorTab === 'improve') {
-                renderImprovementPanel();
-                return;
-            }
-
-            const body = document.getElementById('inspectorBody');
-            const counter = document.getElementById('inspectorCounter');
-            if (!body || !counter) return;
-
-            if (!currentPassage) {
-                counter.textContent = "0 / 0";
-                body.innerHTML = `
-                    <div class="text-center py-8 text-cute-cocoa/70 text-xs font-semibold flex flex-col items-center gap-2.5">
-                        <i class="ph-fill ph-paw-print text-3xl text-cute-pink"></i>
-                        <p>Paste your passage on the left and click <strong>Scan Text</strong> to inspect exact issues and generate safe AI-reduction improvements.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            if (detectedIssues.length === 0) {
-                counter.textContent = "0 / 0";
-                body.innerHTML = `
-                    <div class="text-center py-6 text-cute-cocoa/75 text-xs font-semibold space-y-3">
-                        <i class="ph-fill ph-sparkle text-2xl text-[#4d9e7d]"></i>
-                        <p>No problematic AI phrases or slop patterns detected in this passage!</p>
-                        <button onclick="switchInspectorTab('improve')" class="px-3 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft border border-cute-creamBorder text-cute-cocoa text-[11px] font-bold transition">
-                            查看結構與安全改寫建議 →
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            const issue = detectedIssues[activeIssueIndex];
-            counter.textContent = `${activeIssueIndex + 1} / ${detectedIssues.length}`;
-
-            const badgeStyle = issue.severity === 'high'
-                ? 'bg-[#f9dfe4] text-[#6e2d3b] border-[#e3b8c1]'
-                : issue.severity === 'medium'
-                    ? 'bg-cute-yellowSoft text-[#6b4e16] border-[#ebd68f]'
-                    : 'bg-[#efe9fa] text-[#4b3269] border-[#d3c1eb]';
-
-            const dimLabels = {
-                authenticity: 'Authenticity 真實性',
-                density: 'Density 資訊密度',
-                directness: 'Directness 表達直接度',
-                trust: 'Trust 可信度'
-            };
-            const dimText = dimLabels[issue.dimension] || 'Style';
-
-            const isDeletion = issue.suggestedReplacement === "";
-            const replacementDisplay = isDeletion
-                ? '(Delete this filler phrase / 直接刪除此段冗餘表達)'
-                : `"${escapeHtml(issue.suggestedReplacement)}"`;
-
-            const safeRuleCount = lastHumanizeResult ? lastHumanizeResult.whatChanged.length : 0;
-
-            body.innerHTML = `
-                <div class="p-3 bg-cute-cream border border-cute-creamBorder rounded-xl space-y-2">
-                    <div class="flex flex-wrap items-center justify-between gap-1.5">
-                        <span class="text-[10px] uppercase font-bold text-cute-pink">1. Where is the Problem (#${activeIssueIndex + 1})</span>
-                        <div class="flex items-center gap-1">
-                            <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-white border border-cute-blushBorder text-cute-cocoa/80">${dimText}</span>
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeStyle}">Sev ${issue.severityNum}/5</span>
-                        </div>
-                    </div>
-                    <p class="text-[11px] font-bold text-cute-cocoa">${escapeHtml(issue.category)}</p>
-                    <p class="font-serif text-sm bg-white p-2.5 rounded-lg border border-cute-blushBorder text-cute-cocoa">"${escapeHtml(issue.textSpan)}"</p>
-                </div>
-
-                <div class="space-y-1">
-                    <h4 class="text-[10px] uppercase font-bold text-cute-pink">2. What is the Problem</h4>
-                    <p class="text-xs leading-relaxed text-cute-cocoa">${escapeHtml(issue.whatIsProblem)}</p>
-                </div>
-
-                <div class="space-y-1.5">
-                    <h4 class="text-[10px] uppercase font-bold text-cute-pink">3. How to Change the Problem</h4>
-                    <p class="text-xs leading-relaxed text-cute-cocoa">${escapeHtml(issue.howToChange)}</p>
-                    <div class="p-3 bg-[#f3faf6] border border-[#c5e3d3] rounded-xl text-xs space-y-2">
-                        <div>
-                            <span class="font-bold text-[#225741] block text-[11px]">Suggested Human Revision:</span>
-                            <p class="font-serif text-[#1e4d39] italic mt-0.5">${replacementDisplay}</p>
-                        </div>
-                        <button onclick="applySingleFix(${activeIssueIndex})" class="w-full py-1.5 rounded-lg bg-[#2d7a5b] hover:bg-[#236349] text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
-                            <i class="ph-bold ph-check"></i> ${isDeletion ? 'Remove This Filler Phrase' : 'Apply This Fix to My Text'}
-                        </button>
-                    </div>
-                </div>
-
-                <div class="space-y-1 border-t border-cute-blushBorder pt-3">
-                    <h4 class="text-[10px] uppercase font-bold text-cute-pink">4. How to Prevent This Issue</h4>
-                    <p class="text-xs leading-relaxed text-cute-cocoa/85">${escapeHtml(issue.howToPrevent)}</p>
-                </div>
-
-                <div class="pt-2 border-t border-cute-blushBorder">
-                    <button onclick="switchInspectorTab('improve')" class="w-full py-2 px-3 rounded-xl bg-cute-blush/60 hover:bg-cute-blush border border-cute-blushBorder text-cute-cocoa text-[11px] font-bold transition flex items-center justify-between">
-                        <span class="flex items-center gap-1.5"><i class="ph-fill ph-sparkle text-cute-pink"></i> 安全去 AI 味改寫建議${safeRuleCount > 0 ? ` (${safeRuleCount} 項可優化)` : ''}</span>
-                        <i class="ph-bold ph-arrow-right text-cute-pink"></i>
-                    </button>
-                </div>
-            `;
-        }
-
-        function renderImprovementPanel() {
-            const body = document.getElementById('inspectorBody');
-            if (!body) return;
-
-            if (!currentPassage || !lastHumanizeResult) {
-                body.innerHTML = `
-                    <div class="text-center py-8 text-cute-cocoa/70 text-xs font-semibold flex flex-col items-center gap-2.5">
-                        <i class="ph-fill ph-sparkle text-3xl text-cute-pink"></i>
-                        <p>請先於左側貼上文章並點擊 <strong>Scan Text</strong>，系統將產生安全「去 AI 味」改寫方案與人工覆核清單。</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const res = lastHumanizeResult;
-            const currentScore = lastAnalysis ? lastAnalysis.overallScore : 0;
-            const scoreDelta = currentScore - res.projectedScore;
-            const academicActiveCls = humanizeAcademicMode
-                ? 'bg-cute-pink text-white shadow-sm'
-                : 'text-cute-cocoa/75 hover:text-cute-cocoa';
-            const naturalActiveCls = !humanizeAcademicMode
-                ? 'bg-cute-pink text-white shadow-sm'
-                : 'text-cute-cocoa/75 hover:text-cute-cocoa';
-
-            const whatChangedHtml = res.whatChanged.length > 0
-                ? `<ul class="space-y-1.5">
-                    ${res.whatChanged.map(item => `
-                        <li class="flex items-center justify-between gap-2 text-[11px] bg-white px-2.5 py-1.5 rounded-lg border border-[#cde5d7]">
-                            <span class="text-cute-cocoa font-semibold flex items-center gap-1.5">
-                                <i class="ph-fill ph-check-circle text-[#2d7a5b] shrink-0"></i>
-                                ${escapeHtml(item.description)}
-                            </span>
-                            <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#e3f5ec] text-[#225741] shrink-0">×${item.count}</span>
-                        </li>
-                    `).join('')}
-                   </ul>`
-                : `<p class="text-[11px] text-[#225741]/85 italic">在目前模式下未偵測到需要自動改寫的套話或排版殘留${humanizeAcademicMode ? '（可切換至「標準自然模式」啟用進階精簡規則）' : ''}。</p>`;
-
-            const manualReviewHtml = res.manualReview.length > 0
-                ? `<div class="p-3 bg-cute-cream border border-cute-creamBorder rounded-xl space-y-2">
-                    <div class="flex items-center gap-1.5">
-                        <i class="ph-fill ph-warning-circle text-[#b37d1e] text-sm"></i>
-                        <span class="text-[10px] uppercase font-bold text-[#8a5d10]">人工覆核提醒 (不自動捏造事實)</span>
-                    </div>
-                    <div class="space-y-2">
-                        ${res.manualReview.map(mr => `
-                            <div class="p-2.5 rounded-lg bg-white border border-cute-creamBorder space-y-1 text-[11px]">
-                                <span class="font-bold text-cute-cocoa block">${escapeHtml(mr.issue)}</span>
-                                <div class="flex flex-wrap gap-1">
-                                    ${mr.matches.map(m => `<span class="px-1.5 py-0.5 rounded bg-[#f9dfe4]/70 text-[#6e2d3b] font-serif text-[10px]">「${escapeHtml(m)}」</span>`).join('')}
-                                </div>
-                                <p class="text-cute-cocoa/80 leading-relaxed">${escapeHtml(mr.advice)}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                   </div>`
-                : '';
-
-            const pillarTipsHtml = res.pillarTips && res.pillarTips.length > 0
-                ? `<div class="p-3 bg-cute-blush/35 border border-cute-blushBorder rounded-xl space-y-2">
-                    <span class="text-[10px] uppercase font-bold text-cute-pink block">五柱結構降 AI 率建議</span>
-                    <div class="space-y-1.5">
-                        ${res.pillarTips.map(t => `
-                            <div class="text-[11px] leading-relaxed bg-white p-2.5 rounded-lg border border-cute-blushBorder">
-                                <span class="font-bold text-cute-cocoa block">${escapeHtml(t.title)}</span>
-                                <span class="text-cute-cocoa/80">${escapeHtml(t.detail)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                   </div>`
-                : '';
-
-            const protectedBadgeHtml = res.protectedCount > 0
-                ? `<div class="px-2.5 py-1.5 rounded-lg bg-[#f3faf6] border border-[#cde5d7] text-[10px] font-bold text-[#225741] flex items-center gap-1.5">
-                    <i class="ph-fill ph-lock-simple text-[#2d7a5b]"></i>
-                    已鎖定保護 ${res.protectedCount} 處程式碼／URL／中文引文，改寫時絕不更動原意
-                   </div>`
-                : '';
-
-            const undoBtnHtml = previousPassageBeforeHumanize
-                ? `<button onclick="undoHumanizedRewrite()" class="w-full py-1.5 rounded-lg bg-cute-blush/70 hover:bg-cute-blush text-cute-cocoa font-bold text-[11px] transition flex items-center justify-center gap-1.5">
-                    <i class="ph-bold ph-arrow-counter-clockwise"></i> 復原至改寫前原文 (Undo)
-                   </button>`
-                : '';
-
-            body.innerHTML = `
-                <!-- Mode Switcher: 保守學術模式 vs 標準自然模式 -->
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="text-[10px] uppercase font-bold text-cute-pink">改寫保守程度</span>
-                        <span class="text-[10px] text-cute-cocoa/65 font-semibold">${humanizeAcademicMode ? '保留正式論文結構' : '最大程度口語精簡'}</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-1 p-1 rounded-xl bg-cute-blush/70 border border-cute-blushBorder">
-                        <button onclick="toggleHumanizeAcademicMode(true)" class="py-1.5 px-2 rounded-lg text-[11px] font-bold transition ${academicActiveCls}">
-                            🎓 保守學術模式
-                        </button>
-                        <button onclick="toggleHumanizeAcademicMode(false)" class="py-1.5 px-2 rounded-lg text-[11px] font-bold transition ${naturalActiveCls}">
-                            ✨ 標準自然模式
-                        </button>
-                    </div>
-                    ${protectedBadgeHtml}
-                </div>
-
-                <!-- Safe Rewrite Summary + What Changed -->
-                <div class="p-3 bg-[#f3faf6] border border-[#c5e3d3] rounded-xl space-y-2.5">
-                    <div class="flex items-center justify-between gap-2">
-                        <span class="text-[10px] uppercase font-bold text-[#225741]">安全改寫清單 (What Changed)</span>
-                        ${res.changed
-                            ? `<span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white border border-[#b7e0cc] text-[#225741]">預估 ${currentScore}% → ${res.projectedScore}%${scoreDelta > 0 ? ` (-${scoreDelta}%)` : ''}</span>`
-                            : `<span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white border border-[#b7e0cc] text-[#225741]">已達最佳狀態</span>`
-                        }
-                    </div>
-
-                    ${whatChangedHtml}
-
-                    ${res.changed ? `
-                        <details class="bg-white rounded-lg border border-[#cde5d7] p-2.5 text-xs">
-                            <summary class="cursor-pointer font-bold text-[#225741] text-[11px] select-none">預覽安全改寫結果（點擊展開）</summary>
-                            <p class="mt-2 font-serif text-xs leading-relaxed text-cute-cocoa whitespace-pre-wrap max-h-40 overflow-y-auto border-t border-[#e3f5ec] pt-2">${escapeHtml(res.cleanedText)}</p>
-                        </details>
-                        <div class="flex items-center gap-2 pt-0.5">
-                            <button onclick="applyHumanizedRewrite()" class="flex-1 py-2 rounded-lg bg-[#2d7a5b] hover:bg-[#236349] text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm">
-                                <i class="ph-bold ph-magic-wand"></i> 套用安全改寫並重掃
-                            </button>
-                            <button onclick="copyHumanizedPreview()" class="px-3 py-2 rounded-lg bg-white hover:bg-[#e3f5ec] border border-[#b7e0cc] text-[#225741] font-bold text-xs transition" title="複製改寫版本">
-                                <i class="ph-bold ph-copy"></i>
-                            </button>
-                        </div>
-                    ` : ''}
-                    ${undoBtnHtml}
-                </div>
-
-                ${manualReviewHtml}
-                ${pillarTipsHtml}
-            `;
-        }
-
-        function cleanSpacingAfterEdit(str) {
-            return str
-                .replace(/ {2,}/g, ' ')
-                .replace(/\s+([,.;:!?])/g, '$1')
-                .replace(/([。！？，；])\s*([，、])/g, '$1')
-                .replace(/^\s+/gm, (m) => m.includes('\n') ? m : '');
-        }
-
-        function applySingleFix(idx) {
-            const issue = detectedIssues[idx];
-            if (!issue) return;
-            const rawUpdated = currentPassage.slice(0, issue.start) + issue.suggestedReplacement + currentPassage.slice(issue.end);
-            currentPassage = cleanSpacingAfterEdit(rawUpdated);
-            document.getElementById('passageInput').value = currentPassage;
-            updateWordCount();
-            runManualScan(true);
-            showToast("Applied revision and updated AI score!");
-        }
-
-        function applyAllFixes() {
-            if (detectedIssues.length === 0) return;
-            let updated = currentPassage;
-            for (let i = detectedIssues.length - 1; i >= 0; i--) {
-                const iss = detectedIssues[i];
-                updated = updated.slice(0, iss.start) + iss.suggestedReplacement + updated.slice(iss.end);
-            }
-            currentPassage = cleanSpacingAfterEdit(updated);
-            document.getElementById('passageInput').value = currentPassage;
-            updateWordCount();
-            runManualScan(true);
-            showToast("Applied all suggested fixes!");
-        }
-
-        // ============================================================================
-        // DYNAMIC BILINGUAL TOPIC-MATCHED REAL-LIFE HUMAN ESSAY EXAMPLES
-        // ============================================================================
-        function renderRelatedExamples(text, langMode) {
-            const section = document.getElementById('relatedExamplesSection');
-            const grid = document.getElementById('relatedExamplesGrid');
-            const topicLabel = document.getElementById('detectedTopicLabel');
-            if (!section || !grid || !topicLabel) return;
-
-            if (langMode === 'zh') {
-                const zhWords = (text.match(/[\u4e00-\u9fff]{2,4}/g) || [])
-                    .filter(w => !/^(我們|他們|這個|那個|因為|所以|但是|如果|可以|已經|進行|值得|注意|不僅|更是|顯示|認為|重要|全面|系統|深度|持續|實現|推動|發展|提升|整體|而言)$/.test(w));
-                const freq = {};
-                zhWords.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
-                const topZh = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 3);
-                const t1 = topZh[0] || "產業轉型";
-                const t2 = topZh[1] || "資料流程";
-                const t3 = topZh[2] || "決策效率";
-
-                topicLabel.textContent = `根據你的中文段落關鍵詞「${t1}」、「${t2}」與「${t3}」匹配之人類寫作示範`;
-
-                const zhEx1 = `過去三年調查顯示，${t1}並非單靠軟體升級就能奏效（陳志明等，2024，頁88）。問題出在哪？在我們訪談的 42 家企業裡，超過六成團隊其實卡在${t2}權責不清，導致${t3}不升反降。`;
-                const zhEx2 = `2023 年底專案試點上線後，第一季的退件率反而上升了 11%；原因很單純——現場人員根本沒有足夠時間重整${t2}。等到主管取消冗餘表單、把${t1}聚焦在三個核心指標後，${t3}才在半年內回到預期水準。`;
-
-                section.classList.remove('hidden');
-                grid.innerHTML = `
-                    <div class="p-4 rounded-xl bg-cute-cream/70 border border-cute-creamBorder flex flex-col justify-between space-y-3">
-                        <div class="space-y-1.5">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold uppercase text-cute-pink">範例 A：實證數據＋設問節奏</span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e3f5ec] text-[#225741]">低 AI 風險</span>
-                            </div>
-                            <p class="font-serif text-sm leading-relaxed text-cute-cocoa">「${escapeHtml(zhEx1)}」</p>
-                            <p class="text-[11px] text-cute-cocoa/75 pt-1"><strong>為何自然：</strong>捨棄「不僅是…更是」與「賦能」，改用具名引文、短問句（「問題出在哪？」）與真實樣本數（42 家企業）。</p>
-                        </div>
-                        <button onclick="loadBenchmarkIntoScanner('${escapeJsString(zhEx1)}')" class="w-full py-1.5 rounded-lg bg-white hover:bg-cute-blush border border-cute-blushBorder text-cute-cocoa text-xs font-bold transition">
-                            載入此中文範例測試
-                        </button>
-                    </div>
-
-                    <div class="p-4 rounded-xl bg-cute-blush/35 border border-cute-blushBorder flex flex-col justify-between space-y-3">
-                        <div class="space-y-1.5">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-bold uppercase text-cute-pink">範例 B：具體時間點＋主動語態</span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e3f5ec] text-[#225741]">低 AI 風險</span>
-                            </div>
-                            <p class="font-serif text-sm leading-relaxed text-cute-cocoa">「${escapeHtml(zhEx2)}」</p>
-                            <p class="text-[11px] text-cute-cocoa/75 pt-1"><strong>為何自然：</strong>使用確切年份、百分比、破折號轉折與具體行動主體（「現場人員」、「主管」），完全避免空泛拔高。</p>
-                        </div>
-                        <button onclick="loadBenchmarkIntoScanner('${escapeJsString(zhEx2)}')" class="w-full py-1.5 rounded-lg bg-white hover:bg-cute-blush border border-cute-blushBorder text-cute-cocoa text-xs font-bold transition">
-                            載入此中文範例測試
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            const stopWords = new Set(['the','and','for','that','this','with','from','have','has','are','was','were','been','being','into','through','during','before','after','above','below','between','under','again','further','then','once','here','there','when','where','why','how','all','any','both','each','few','more','most','other','some','such','only','own','same','than','too','very','can','will','just','should','now','also','crucial','pivotal','delve','delves','landscape','multifaceted','furthermore','moreover','however','therefore','thus','implementation','integration','optimization','framework']);
-            const words = (text.match(/\b[a-zA-Z]{5,}\b/g) || [])
-                .map(w => w.toLowerCase())
-                .filter(w => !stopWords.has(w));
-
-            const freq = {};
-            words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
-            const topKeywords = Object.keys(freq).sort((a, b) => freq[b] - freq[a]).slice(0, 3);
-
-            const mainTopic = topKeywords[0] || "empirical research";
-            const secondTopic = topKeywords[1] || "institutional policy";
-            const thirdTopic = topKeywords[2] || "methodological design";
-
-            topicLabel.textContent = `Tailored to your passage's focus on "${mainTopic}", "${secondTopic}", and "${thirdTopic}"`;
-
-            const ex1 = `While broad summaries assume ${mainTopic} operates uniformly across institutions, longitudinal panel data from 2018–2023 reveal sharp regional divergence (see Miller & Chen, 2023, p. 114). Why does ${secondTopic} succeed in some districts yet stall in others? In our sample (n = 340), budgets tied directly to local ${thirdTopic} reduced attrition by 28% within two years.`;
-            const ex2 = `Early critics treated ${mainTopic} as a purely technical adjustment; archival records from the 2019 pilot tell a different story. Practitioners did not reject ${secondTopic} out of inertia—they lacked the baseline staffing required to verify ${thirdTopic} under real-world time constraints (Patel, 2022).`;
-
-            section.classList.remove('hidden');
-            grid.innerHTML = `
-                <div class="p-4 rounded-xl bg-cute-cream/70 border border-cute-creamBorder flex flex-col justify-between space-y-3">
-                    <div class="space-y-1.5">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-bold uppercase text-cute-pink">Example A: Empirical &amp; Cited Human Style</span>
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e3f5ec] text-[#225741]">2% AI Score</span>
-                        </div>
-                        <p class="font-serif text-sm leading-relaxed text-cute-cocoa">"${escapeHtml(ex1)}"</p>
-                        <p class="text-[11px] text-cute-cocoa/75 pt-1"><strong>Why it passes as human:</strong> Uses a rhetorical question, parenthetical citation, exact sample size (<em>n = 340</em>), and varied sentence lengths (24 words, 12 words, 21 words).</p>
-                    </div>
-                    <button onclick="loadBenchmarkIntoScanner('${escapeJsString(ex1)}')" class="w-full py-1.5 rounded-lg bg-white hover:bg-cute-blush border border-cute-blushBorder text-cute-cocoa text-xs font-bold transition">
-                        Load This Example into Scanner
-                    </button>
-                </div>
-
-                <div class="p-4 rounded-xl bg-cute-blush/35 border border-cute-blushBorder flex flex-col justify-between space-y-3">
-                    <div class="space-y-1.5">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-bold uppercase text-cute-pink">Example B: High-Burstiness Argument Style</span>
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#e3f5ec] text-[#225741]">3% AI Score</span>
-                        </div>
-                        <p class="font-serif text-sm leading-relaxed text-cute-cocoa">"${escapeHtml(ex2)}"</p>
-                        <p class="text-[11px] text-cute-cocoa/75 pt-1"><strong>Why it passes as human:</strong> Combines a semicolon contrast and an em-dash interruption with concrete human actors (<em>"Practitioners"</em>) instead of abstract nominalizations.</p>
-                    </div>
-                    <button onclick="loadBenchmarkIntoScanner('${escapeJsString(ex2)}')" class="w-full py-1.5 rounded-lg bg-white hover:bg-cute-blush border border-cute-blushBorder text-cute-cocoa text-xs font-bold transition">
-                        Load This Example into Scanner
-                    </button>
-                </div>
-            `;
-        }
-
-        function loadBenchmarkIntoScanner(text) {
-            switchPage('scanner');
-            document.getElementById('passageInput').value = text;
-            updateWordCount();
-            runManualScan(true);
-        }
-
-        // ============================================================================
-        // GENERAL UTILITIES
-        // ============================================================================
-        function matchCase(original, replacement) {
-            if (!original || !replacement) return replacement;
-            if (original === original.toUpperCase() && original !== original.toLowerCase()) {
-                return replacement.toUpperCase();
-            }
-            if (original[0] === original[0].toUpperCase() && original[0] !== original[0].toLowerCase()) {
-                return replacement.charAt(0).toUpperCase() + replacement.slice(1);
-            }
-            return replacement;
-        }
-
-        function copyPassageText() {
-            const text = document.getElementById('passageInput')?.value || '';
-            if (!text) {
-                showToast("Nothing to copy yet!");
-                return;
-            }
-            const temp = document.createElement('textarea');
-            temp.value = text;
-            temp.style.position = 'fixed';
-            temp.style.opacity = '0';
-            document.body.appendChild(temp);
-            temp.select();
-            try {
-                document.execCommand('copy');
-                showToast("Copied passage to clipboard!");
-            } catch (e) {
-                showToast("Copy failed—please select and copy manually.");
-            }
-            document.body.removeChild(temp);
-        }
-
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;");
-        }
-
-        function escapeJsString(str) {
-            return String(str)
-                .replace(/\\/g, "\\\\")
-                .replace(/'/g, "\\'")
-                .replace(/\n/g, "\\n")
-                .replace(/\r/g, "");
-        }
-    </script>
-
+    <!-- Traditional Global Scripts (Relative Paths Only — Works via file:// and GitHub Pages) -->
+    <script src="./rules-en.js"></script>
+    <script src="./engine.js"></script>
 </body>
 </html>

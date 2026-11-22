@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScholaraPuppy | 中文學術 AI 文本檢測與風格分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web" crossorigin="anonymous"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Quicksand', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'sans-serif'],
+                        serif: ['Noto Serif TC', 'Georgia', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        cute: {
+                            pink: '#c86d81',
+                            blush: '#f8e8ec',
+                            cream: '#fdf9eb',
+                            yellowSoft: '#fcf1c8',
+                            cocoa: '#3b282e',
+                            pinkHover: '#b2596d',
+                            creamBorder: '#ead9b5',
+                            blushBorder: '#ebd3d8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Toast Container -->
+    <div id="toastContainer" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-md border-b-2 border-cute-blushBorder sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 min-h-16 py-2 flex flex-wrap items-center justify-between gap-2">
+            <!-- Brand & Spaniel Puppy -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-cute-blush border-2 border-cute-pink flex items-center justify-center shadow-sm puppy-float shrink-0" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" class="w-9 h-9">
+                        <path d="M22 30 C10 30 8 55 18 62 C24 65 28 52 28 40 Z" fill="#d97757" stroke="#3b282e" stroke-width="4"></path>
+                        <path d="M78 30 C90 30 92 55 82 62 C76 65 72 52 72 40 Z" fill="#d97757" stroke="#3b282e" stroke-width="4"></path>
+                        <rect x="22" y="24" width="56" height="50" rx="24" fill="#fff8f6" stroke="#3b282e" stroke-width="4"></rect>
+                        <path d="M22 42 C34 42 40 30 36 24 L26 24 Z" fill="#d97757"></path>
+                        <path d="M78 42 C66 42 60 30 64 24 L74 24 Z" fill="#d97757"></path>
+                        <circle cx="37" cy="47" r="4" fill="#3b282e"></circle>
+                        <circle cx="63" cy="47" r="4" fill="#3b282e"></circle>
+                        <ellipse cx="30" cy="54" rx="5" ry="2.5" fill="#e899a8"></ellipse>
+                        <ellipse cx="70" cy="54" rx="5" ry="2.5" fill="#e899a8"></ellipse>
+                        <ellipse cx="50" cy="51" rx="4.5" ry="3" fill="#3b282e"></ellipse>
+                        <path d="M46 58 Q50 67 54 58 Z" fill="#c86d81" stroke="#3b282e" stroke-width="3"></path>
+                        <path d="M43 56 Q50 61 57 56" fill="none" stroke="#3b282e" stroke-width="3.5" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-cute-cocoa tracking-tight leading-none">ScholaraPuppy</h1>
+                    <p class="text-[11px] text-cute-pink font-bold mt-0.5" data-tw="中文學術 AI 文本檢測與風格分析" data-cn="中文学术 AI 文本检测与风格分析">中文學術 AI 文本檢測與風格分析</p>
+                </div>
+            </div>
+
+            <!-- In-Page Nav, 繁/簡 Toggle & Distinct English Switcher -->
+            <div class="flex flex-wrap items-center gap-2">
+                <nav aria-label="主導覽列" class="flex items-center bg-cute-blush p-1 rounded-xl border border-cute-blushBorder">
+                    <button type="button" id="navScannerBtn" onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm flex items-center gap-1.5">
+                        <i class="ph-fill ph-paw-print text-cute-pink"></i>
+                        <span data-tw="AI 檢測器" data-cn="AI 检测器">AI 檢測器</span>
+                    </button>
+                    <button type="button" id="navRefBtn" onclick="switchPage('reference')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-cute-cocoa/70 hover:text-cute-cocoa flex items-center gap-1.5">
+                        <i class="ph-fill ph-book-open text-cute-pink"></i>
+                        <span data-tw="原理與對照" data-cn="原理与对照">原理與對照</span>
+                    </button>
+                </nav>
+
+                <!-- 繁 / 簡 即時切換開關 -->
+                <div class="zh-script-toggle" role="group" aria-label="繁簡切換">
+                    <button type="button" id="zhBtnTw" onclick="setZhScript('tw')" class="zh-script-btn is-active" title="切換為繁體中文">繁</button>
+                    <button type="button" id="zhBtnCn" onclick="setZhScript('cn')" class="zh-script-btn" title="切换为简体中文">简</button>
+                </div>
+
+                <!-- 獨立英文版入口（視覺明顯區分） -->
+                <a href="./index.html" class="lang-switch-btn" title="Switch to the English Detector">
+                    <i class="ph-bold ph-translate text-sm text-[#a6741e]"></i>
+                    <span>Try the English Detector</span>
+                    <i class="ph-bold ph-arrow-up-right text-[11px] opacity-75"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6">
+
+        <!-- ================= PAGE 1: SCANNER WORKSPACE ================= -->
+        <section id="pageScanner" class="space-y-6">
+
+            <!-- Top Memorize Bar (最近 5 次中文掃描紀錄，與英文版完全獨立) -->
+            <div class="bg-white px-4 py-2.5 rounded-2xl border-2 border-cute-blushBorder shadow-sm flex items-center justify-between gap-3 overflow-x-auto">
+                <div class="flex items-center gap-2 shrink-0 bg-cute-cream border border-cute-creamBorder px-3 py-1 rounded-xl">
+                    <svg viewBox="0 0 100 100" class="w-5 h-5 shrink-0" aria-hidden="true">
+                        <path d="M18 28 C10 26 10 46 20 48 Z" fill="#3b282e" stroke="#3b282e" stroke-width="4"></path>
+                        <path d="M82 28 C90 26 90 46 80 48 Z" fill="#3b282e" stroke="#3b282e" stroke-width="4"></path>
+                        <rect x="22" y="24" width="56" height="52" rx="24" fill="#f3d5c0" stroke="#3b282e" stroke-width="4"></rect>
+                        <ellipse cx="50" cy="55" rx="15" ry="11" fill="#3b282e"></ellipse>
+                        <circle cx="35" cy="45" r="4" fill="#3b282e"></circle>
+                        <circle cx="65" cy="45" r="4" fill="#3b282e"></circle>
+                    </svg>
+                    <span class="text-xs font-bold text-cute-cocoa" data-tw="最近 5 次掃描：" data-cn="最近 5 次扫描：">最近 5 次掃描：</span>
+                </div>
+                <div id="recentHistoryBar" class="flex items-center gap-2 flex-grow overflow-x-auto py-0.5">
+                    <span class="text-xs text-cute-cocoa/60 italic px-2" data-tw="尚無掃描紀錄 — 請在下方貼上文章並點擊「掃描文本」。" data-cn="暂无扫描记录 — 请在下方粘贴文章并点击「扫描文本」。">尚無掃描紀錄 — 請在下方貼上文章並點擊「掃描文本」。</span>
+                </div>
+                <button type="button" onclick="clearAllMemory()" class="text-[11px] font-bold text-cute-pink hover:underline shrink-0 px-2" data-tw="清除" data-cn="清除">清除</button>
+            </div>
+
+            <!-- Main Two-Column Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                <!-- LEFT: Direct Paste Editor & Highlighted Result (7 cols) -->
+                <div class="lg:col-span-7 bg-white rounded-2xl border-2 border-cute-blushBorder shadow-sm overflow-hidden flex flex-col">
+                    <!-- Top Toolbar -->
+                    <div class="px-5 py-3 bg-cute-blush/60 border-b border-cute-blushBorder flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center space-x-1 bg-cute-blush p-1 rounded-xl border border-cute-blushBorder">
+                            <button type="button" id="tabEditBtn" onclick="switchEditorMode('edit')" class="px-3 py-1 rounded-lg text-xs font-bold transition bg-white text-cute-cocoa shadow-sm" data-tw="1. 貼上／編輯原文" data-cn="1. 粘贴／编辑原文">
+                                1. 貼上／編輯原文
+                            </button>
+                            <button type="button" id="tabHighlightBtn" onclick="switchEditorMode('highlight')" class="px-3 py-1 rounded-lg text-xs font-bold transition text-cute-cocoa/65 hover:text-cute-cocoa" data-tw="2. 問題標記檢視" data-cn="2. 问题标记视图">
+                                2. 問題標記檢視
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <button type="button" onclick="clearEditorText()" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-cute-blush text-cute-cocoa/75 hover:text-cute-cocoa border border-cute-blushBorder text-xs font-bold transition flex items-center gap-1" data-title-tw="清空文字" data-title-cn="清空文字" title="清空文字">
+                                <i class="ph-bold ph-trash"></i>
+                            </button>
+                            <button type="button" onclick="copyPassageText()" class="px-2.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft text-cute-cocoa border border-cute-creamBorder text-xs font-bold transition flex items-center gap-1">
+                                <i class="ph-bold ph-copy"></i>
+                                <span data-tw="複製" data-cn="复制">複製</span>
+                            </button>
+                            <button type="button" id="scanTextBtn" onclick="runManualScan()" class="px-3.5 py-1.5 rounded-xl bg-cute-pink hover:bg-cute-pinkHover text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                                <i class="ph-fill ph-magnifying-glass"></i>
+                                <span data-tw="掃描文本" data-cn="扫描文本">掃描文本</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mode 1: Direct Paste Input -->
+                    <div id="rawEditorContainer" class="p-5 bg-[#fffdf9]">
+                        <label for="passageInput" class="sr-only" data-tw="在此貼上文章" data-cn="在此粘贴文章">在此貼上文章</label>
+                        <textarea id="passageInput" rows="13" class="w-full p-4 rounded-xl border-2 border-cute-blushBorder focus:border-cute-pink focus:ring-4 focus:ring-cute-blush outline-none font-serif text-lg leading-relaxed text-cute-cocoa resize-y bg-white placeholder:text-cute-pink/60" placeholder="在此貼上文章，點擊「掃描文本」..." data-placeholder-tw="在此貼上文章，點擊「掃描文本」..." data-placeholder-cn="在此粘贴文章，点击「扫描文本」..."></textarea>
+
+                        <!-- 僅保留基本字數／段數／句數統計 -->
+                        <div class="mt-3 flex flex-wrap items-center justify-end gap-1.5 text-xs text-cute-cocoa/80 font-semibold">
+                            <span id="paraCountBadge" class="font-mono text-[11px] bg-cute-blush/40 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 段</span>
+                            <span id="sentenceCountBadge" class="font-mono text-[11px] bg-cute-blush/60 px-2.5 py-0.5 rounded-full border border-cute-blushBorder">0 句</span>
+                            <span id="wordCountBadge" class="font-mono text-[11px] bg-cute-cream px-2.5 py-0.5 rounded-full border border-cute-creamBorder">0 字</span>
+                        </div>
+
+                        <!-- 範例載入列（移至輸入框正下方） -->
+                        <div class="sample-loader-bar">
+                            <span class="text-xs font-bold text-cute-cocoa/75 mr-1" data-tw="載入範例：" data-cn="载入范例：">載入範例：</span>
+                            <div id="sampleButtonsContainer" class="flex flex-wrap items-center gap-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Mode 2: Highlighted Problems View -->
+                    <div id="annotatedContainer" class="hidden p-6 min-h-[340px] bg-white flex flex-col justify-between">
+                        <div>
+                            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-cute-blushBorder text-xs">
+                                <span class="font-bold text-cute-cocoa" data-tw="點擊任意高亮字句，於右側檢視原因並套用保原意改寫：" data-cn="点击任意高亮字句，在右侧查看原因并应用保原意改写：">點擊任意高亮字句，於右側檢視原因並套用保原意改寫：</span>
+                                <div class="flex flex-wrap items-center gap-2.5">
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#f9dfe4] border border-cute-pink"></span> <span data-tw="高風險" data-cn="高风险">高風險</span></span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-cute-yellowSoft border border-[#d49e3d]"></span> <span data-tw="中風險" data-cn="中风险">中風險</span></span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#efe9fa] border border-[#8c6bb1]"></span> <span data-tw="微調" data-cn="微调">微調</span></span>
+                                    <span class="inline-flex items-center gap-1 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-[#e6f4f7] border border-[#3e8ca3]"></span> <span data-tw="節奏／拆段" data-cn="节奏／拆段">節奏／拆段</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Whitelisted STEM Jargon Banner -->
+                            <div id="whitelistProtectedBanner" class="hidden mb-4 p-3 rounded-xl bg-[#f3faf6] border border-[#b7e0cc] text-[#225741] text-xs flex items-start gap-2.5">
+                                <i class="ph-fill ph-shield-check text-lg shrink-0 mt-0.5 text-[#2d7a5b]"></i>
+                                <div>
+                                    <span class="font-bold" data-tw="STEM 專業術語白名單保護中：" data-cn="STEM 专业术语白名单保护中：">STEM 專業術語白名單保護中：</span>
+                                    <span id="whitelistTermsList" class="text-[#1e4d39]/90 ml-1"></span>
+                                </div>
+                            </div>
+
+                            <div id="annotatedTextBody" class="font-serif text-lg leading-loose text-cute-cocoa select-text"></div>
+                        </div>
+
+                        <div class="mt-6 pt-3 border-t border-cute-blushBorder flex flex-wrap items-center justify-between gap-2">
+                            <button type="button" onclick="switchEditorMode('edit')" class="text-xs font-bold text-cute-pink hover:underline flex items-center gap-1">
+                                <i class="ph-bold ph-pencil-simple"></i>
+                                <span data-tw="返回編輯原文" data-cn="返回编辑原文">返回編輯原文</span>
+                            </button>
+                            <button type="button" id="fixAllBtn" onclick="applyAllSafeFixes()" class="hidden px-3.5 py-1.5 rounded-xl bg-cute-cream hover:bg-cute-yellowSoft border border-cute-creamBorder text-cute-cocoa text-xs font-bold transition flex items-center gap-1.5">
+                                <i class="ph-fill ph-magic-wand text-cute-pink"></i>
+                                <span data-tw="一鍵套用全部安全改寫" data-cn="一键应用全部安全改写">一鍵套用全部安全改寫</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Score Card, 4 Dimensions, Collapsible 5-Pillar & Unified Problem Inspector (5 cols) -->
+                <div class="lg:col-span-5 space-y-4">
+
+                    <!-- Score Card -->
+                    <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-5 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="space-y-1.5">
+                                <span id="verdictBadge" class="inline-block px-3 py-0.5 rounded-full text-[11px] font-bold bg-cute-cream text-cute-cocoa border border-cute-creamBorder" data-tw="準備掃描" data-cn="准备扫描">
+                                    準備掃描
+                                </span>
+                                <h2 class="text-base font-bold text-cute-cocoa" data-tw="綜合 AI 機率評估" data-cn="综合 AI 概率评估">綜合 AI 機率評估</h2>
+                                <button type="button" onclick="switchPage('reference')" class="text-[11px] font-bold text-cute-pink hover:underline inline-flex items-center gap-1 pt-0.5">
+                                    <span data-tw="這是如何計算的？" data-cn="这是如何计算的？">這是如何計算的？</span>
+                                    <i class="ph-bold ph-arrow-right"></i>
+                                </button>
+                            </div>
+
+                            <!-- Circular Gauge -->
+                            <div class="relative shrink-0 flex items-center justify-center">
+                                <svg class="w-24 h-24" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="50" fill="none" stroke="#f8e8ec" stroke-width="12"></circle>
+                                    <circle id="scoreGaugeCircle" class="gauge-circle" cx="60" cy="60" r="50" fill="none" stroke="#c86d81" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="314.16"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="scorePercentageText" class="text-2xl font-extrabold text-cute-cocoa">0%</span>
+                                    <span class="text-[9px] uppercase font-bold text-cute-pink">AI SCORE</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4 Writing Dimensions (主畫面核心指標) -->
+                        <div class="pt-3 border-t border-cute-blushBorder space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] uppercase font-bold text-cute-pink tracking-wider" data-tw="四維寫作健康度" data-cn="四维写作健康度">四維寫作健康度</span>
+                                <span class="text-[10px] text-cute-cocoa/60 font-semibold" data-tw="數值越高越自然" data-cn="数值越高越自然">數值越高越自然</span>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                                <div class="p-2 rounded-xl bg-cute-cream/80 border border-cute-creamBorder">
+                                    <span class="block text-[10px] font-bold text-cute-cocoa/70" data-tw="真實度" data-cn="真实度">真實度</span>
+                                    <span id="dimAuthenticityVal" class="font-mono text-sm font-extrabold text-cute-cocoa">—</span>
+                                </div>
+                                <div class="p-2 rounded-xl bg-cute-blush/50 border border-cute-blushBorder">
+                                    <span class="block text-[10px] font-bold text-cute-cocoa/70" data-tw="資訊密度" data-cn="信息密度">資訊密度</span>
+                                    <span id="dimDensityVal" class="font-mono text-sm font-extrabold text-cute-cocoa">—</span>
+                                </div>
+                                <div class="p-2 rounded-xl bg-cute-cream/80 border border-cute-creamBorder">
+                                    <span class="block text-[10px] font-bold text-cute-cocoa/70" data-tw="直接度" data-cn="直接度">直接度</span>
+                                    <span id="dimDirectnessVal" class="font-mono text-sm font-extrabold text-cute-cocoa">—</span>
+                                </div>
+                                <div class="p-2 rounded-xl bg-cute-blush/50 border border-cute-blushBorder">
+                                    <span class="block text-[10px] font-bold text-cute-cocoa/70" data-tw="可信度" data-cn="可信度">可信度</span>
+                                    <span id="dimTrustVal" class="font-mono text-sm font-extrabold text-cute-cocoa">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 預設折疊的 5 項數學指標（純百分比＋懸停 Tooltip） -->
+                        <div class="pt-2 border-t border-cute-blushBorder space-y-2.5">
+                            <button type="button" id="pillarToggleBtn" onclick="togglePillarBreakdown()" aria-expanded="false" aria-controls="pillarBreakdownPanel" class="pillar-accordion-btn">
+                                <span class="flex items-center gap-1.5">
+                                    <i class="ph-fill ph-sliders-horizontal text-cute-pink"></i>
+                                    <span id="pillarToggleText" data-tw="展開 5 項數學指標" data-cn="展开 5 项数学指标">展開 5 項數學指標</span>
+                                </span>
+                                <i class="ph-bold ph-caret-down pillar-chevron text-cute-pink"></i>
+                            </button>
+
+                            <div id="pillarBreakdownPanel" class="hidden space-y-1.5 pt-1 text-xs">
+                                <p class="text-[10px] text-cute-cocoa/55 px-1" data-tw="百分比越高代表越像 AI；滑鼠懸停各項可檢視數學參數。" data-cn="百分比越高代表越像 AI；鼠标悬停各项可查看数学参数。">百分比越高代表越像 AI；滑鼠懸停各項可檢視數學參數。</p>
+
+                                <div id="p1Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="掃描後懸停可檢視底層數學參數">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa" data-tw="1. 句長節奏" data-cn="1. 句长节奏">1. 句長節奏</span>
+                                        <span id="p1Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p1Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div id="p2Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="掃描後懸停可檢視底層數學參數">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa" data-tw="2. AI 慣用語" data-cn="2. AI 惯用语">2. AI 慣用語</span>
+                                        <span id="p2Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p2Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div id="p3Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="掃描後懸停可檢視底層數學參數">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa" data-tw="3. 用詞預測度" data-cn="3. 用词预测度">3. 用詞預測度</span>
+                                        <span id="p3Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p3Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div id="p4Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="掃描後懸停可檢視底層數學參數">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa" data-tw="4. 段落結構" data-cn="4. 段落结构">4. 段落結構</span>
+                                        <span id="p4Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p4Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div id="p5Row" class="pillar-row space-y-1" tabindex="0" data-tooltip="掃描後懸停可檢視底層數學參數">
+                                    <div class="flex justify-between text-[11px]">
+                                        <span class="font-bold text-cute-cocoa" data-tw="5. 語法工整度" data-cn="5. 语法工整度">5. 語法工整度</span>
+                                        <span id="p5Pct" class="font-mono font-bold text-cute-cocoa">0%</span>
+                                    </div>
+                                    <div class="w-full h-1.5 bg-cute-blush rounded-full overflow-hidden">
+                                        <div id="p5Bar" class="h-full bg-cute-pink transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 整合式單一卡片 Problem Inspector -->
+                    <div class="bg-white rounded-2xl border-2 border-cute-blushBorder shadow-sm overflow-hidden flex flex-col">
+                        <div class="px-4 py-3 bg-cute-pink text-white flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2">
+                                <i class="ph-fill ph-bone text-base"></i>
+                                <span class="text-xs font-bold tracking-wide" data-tw="問題檢視與改寫" data-cn="问题检视与改写">問題檢視與改寫</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="navigateIssue(-1)" class="p-1 rounded hover:bg-white/20 transition" data-title-tw="上一個問題" data-title-cn="上一个问题" title="上一個問題">
+                                    <i class="ph-bold ph-caret-left text-xs"></i>
+                                </button>
+                                <span id="inspectorCounter" class="text-xs font-mono font-bold px-1.5">0 / 0</span>
+                                <button type="button" onclick="navigateIssue(1)" class="p-1 rounded hover:bg-white/20 transition" data-title-tw="下一個問題" data-title-cn="下一个问题" title="下一個問題">
+                                    <i class="ph-bold ph-caret-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="inspectorBody" class="p-5 space-y-4 bg-white">
+                            <div class="text-center py-8 text-cute-cocoa/70 text-xs font-semibold flex flex-col items-center gap-2.5">
+                                <i class="ph-fill ph-paw-print text-3xl text-cute-pink"></i>
+                                <p data-tw="請先於左側貼上文章並點擊「掃描文本」，再點選高亮文字檢視問題與保原意改寫。" data-cn="请先在左侧粘贴文章并点击「扫描文本」，再点击高亮文字查看问题与保原意改写。">請先於左側貼上文章並點擊「掃描文本」，再點選高亮文字檢視問題與保原意改寫。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= PAGE 2: REFERENCE LIBRARY & LOGIC ================= -->
+        <section id="pageReference" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-6 shadow-sm space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-cute-blushBorder pb-3">
+                    <div>
+                        <h2 class="text-base font-bold text-cute-cocoa" data-tw="五維數學指標與三層零成本保原意改寫引擎" data-cn="五维数学指标与三层零成本保原意改写引擎">五維數學指標與三層零成本保原意改寫引擎</h2>
+                        <p class="text-xs text-cute-pink font-semibold" data-tw="純前端確定性規則運算＋中文 STEM 術語白名單保護（無需外部 LLM API）" data-cn="纯前端确定性规则运算＋中文 STEM 术语白名单保护（无需外部 LLM API）">純前端確定性規則運算＋中文 STEM 術語白名單保護（無需外部 LLM API）</p>
+                    </div>
+                    <button type="button" onclick="switchPage('scanner')" class="px-3.5 py-1.5 rounded-xl bg-cute-blush hover:bg-cute-pink hover:text-white text-cute-cocoa text-xs font-bold transition" data-tw="← 返回檢測器" data-cn="← 返回检测器">
+                        ← 返回檢測器
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+                    <div class="p-4 rounded-xl bg-cute-cream border border-cute-creamBorder space-y-1.5">
+                        <span class="font-bold text-cute-cocoa block text-sm" data-tw="1. 句長節奏（權重 23%）" data-cn="1. 句长节奏（权重 23%）">1. 句長節奏（權重 23%）</span>
+                        <p class="text-cute-cocoa/85" data-tw="計算句子長度的標準差（SD），捕捉 AI 過於工整的韻律；層級 2 會自動尋找轉折連接詞，提供 100% 保留原意的一鍵拆句。" data-cn="计算句子长度的标准差（SD），捕捉 AI 过于工整的韵律；层级 2 会自动寻找转折连接词，提供 100% 保留原意的一键拆句。">計算句子長度的標準差（SD），捕捉 AI 過於工整的韻律；層級 2 會自動尋找轉折連接詞，提供 100% 保留原意的一鍵拆句。</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-cute-blush/50 border border-cute-blushBorder space-y-1.5">
+                        <span class="font-bold text-cute-cocoa block text-sm" data-tw="2. AI 慣用語（權重 30%）" data-cn="2. AI 惯用语（权重 30%）">2. AI 慣用語（權重 30%）</span>
+                        <p class="text-cute-cocoa/85" data-tw="偵測假對比（「不僅是…更是」）、起跑式鋪墊、冗餘「進行＋動詞」與空泛拔高，透過捕獲組重組整句骨架，確保核心語意完整不缺失。" data-cn="检测假对比（“不仅是…更是”）、起跑式铺垫、冗余“进行＋动词”与空泛拔高，通过捕获组重组整句骨架，确保核心语义完整不缺失。">偵測假對比（「不僅是…更是」）、起跑式鋪墊、冗餘「進行＋動詞」與空泛拔高，透過捕獲組重組整句骨架，確保核心語意完整不缺失。</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-[#f3faf6] border border-[#b7e0cc] space-y-1.5">
+                        <span class="font-bold text-[#225741] block text-sm" data-tw="3. 用詞預測度（權重 17%）" data-cn="3. 用词预测度（权重 17%）">3. 用詞預測度（權重 17%）</span>
+                        <p class="text-[#1e4d39]/90" data-tw="先排除生物、化學、物理與資訊領域 STEM 術語白名單（如分光光度計、離心、聚合酶、演算法），再分析報告套語與詞彙多樣度。" data-cn="先排除生物、化学、物理与计算机领域 STEM 术语白名单（如分光光度计、离心、聚合酶、算法），再分析报告套语与词汇多样度。">先排除生物、化學、物理與資訊領域 STEM 術語白名單（如分光光度計、離心、聚合酶、演算法），再分析報告套語與詞彙多樣度。</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-cute-blush/50 border border-cute-blushBorder space-y-1.5">
+                        <span class="font-bold text-cute-cocoa block text-sm" data-tw="4. 段落結構（權重 15%）" data-cn="4. 段落结构（权重 15%）">4. 段落結構（權重 15%）</span>
+                        <p class="text-cute-cocoa/85" data-tw="計算各段字數的變異係數（CV）以識別過度對稱的 AI 排版，並於邏輯轉折句提供一鍵拆段建議。" data-cn="计算各段字数的变异系数（CV）以识别过度对称的 AI 排版，并在逻辑转折句提供一键拆段建议。">計算各段字數的變異係數（CV）以識別過度對稱的 AI 排版，並於邏輯轉折句提供一鍵拆段建議。</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-cute-cream border border-cute-creamBorder space-y-1.5 md:col-span-2">
+                        <span class="font-bold text-cute-cocoa block text-sm" data-tw="5. 語法工整度（權重 15%）" data-cn="5. 语法工整度（权重 15%）">5. 語法工整度（權重 15%）</span>
+                        <p class="text-cute-cocoa/85" data-tw="結合中文子句密度（CJK Complexity）與 LanguageTool API／本地語法自然度檢核，辨識過度緊密且零瑕疵的機械化長句。" data-cn="结合中文分句密度（CJK Complexity）与 LanguageTool API／本地语法自然度检核，辨识过度紧密且零瑕疵的机械化长句。">結合中文子句密度（CJK Complexity）與 LanguageTool API／本地語法自然度檢核，辨識過度緊密且零瑕疵的機械化長句。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中文人類 vs AI 對照範例（由 rules-zh.js 動態渲染） -->
+            <div class="bg-white rounded-2xl border-2 border-cute-blushBorder p-6 shadow-sm space-y-4">
+                <div>
+                    <h3 class="text-base font-bold text-cute-cocoa" data-tw="中文人類寫作 vs. AI 腔對照基準" data-cn="中文人类写作 vs. AI 腔对照基准">中文人類寫作 vs. AI 腔對照基準</h3>
+                    <p class="text-xs text-cute-pink font-semibold" data-tw="點選下方按鈕可直接載入人類範例測試評分表現" data-cn="点击下方按钮可直接载入人类范例测试评分表现">點選下方按鈕可直接載入人類範例測試評分表現</p>
+                </div>
+                <div id="referenceBenchmarksGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl w-full mx-auto px-4 py-5 text-center text-xs text-cute-cocoa/60 font-semibold" data-tw="ScholaraPuppy 學術 AI 文本檢測與風格分析器 • 中文版" data-cn="ScholaraPuppy 学术 AI 文本检测与风格分析器 • 中文版">
+        ScholaraPuppy 學術 AI 文本檢測與風格分析器 • 中文版
+    </footer>
+
+    <!-- 傳統全域變數載入順序（全程使用相對路徑，支援雙擊 file:// 與 GitHub Pages） -->
+    <script src="./rules-zh.js"></script>
+    <script src="./engine.js"></script>
+</body>
+</html>

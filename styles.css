@@ -1,0 +1,350 @@
+/* ==========================================================================
+   ScholaraPuppy — Shared Stylesheet (styles.css)
+   Warm Pastel Academic AI Similarity & Style Analyzer
+   ========================================================================== */
+
+:root {
+    --cute-pink: #c86d81;
+    --cute-pink-hover: #b2596d;
+    --cute-blush: #f8e8ec;
+    --cute-blush-border: #ebd3d8;
+    --cute-cream: #fdf9eb;
+    --cute-cream-border: #ead9b5;
+    --cute-yellow-soft: #fcf1c8;
+    --cute-cocoa: #3b282e;
+    --cute-mint-bg: #f3faf6;
+    --cute-mint-border: #b7e0cc;
+    --cute-mint-text: #225741;
+    --cute-mint-accent: #2d7a5b;
+    --cute-bg: #fcf7f5;
+    --cute-dot: #f0dce0;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cute-cream);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--cute-pink);
+    border-radius: 9999px;
+    opacity: 0.7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cute-pink-hover);
+}
+
+/* Base Canvas */
+body {
+    background-color: var(--cute-bg);
+    background-image: radial-gradient(var(--cute-dot) 1.25px, transparent 1.25px);
+    background-size: 28px 28px;
+    color: var(--cute-cocoa);
+}
+
+/* Puppy Mascot Float Animation */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+}
+
+.puppy-float {
+    animation: float-slow 3s ease-in-out infinite;
+}
+
+/* Circular Score Gauge */
+.gauge-circle {
+    transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.35s ease;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+/* ==========================================================================
+   Header Language Switcher (Visually Distinct from In-Page Nav Tabs)
+   ========================================================================== */
+.lang-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.42rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #5c3d1e;
+    background: linear-gradient(135deg, #fdf9eb 0%, #fcf1c8 100%);
+    border: 1.5px solid #e0c37b;
+    box-shadow: 0 1px 2px rgba(59, 40, 46, 0.06);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.lang-switch-btn:hover {
+    background: linear-gradient(135deg, #fcf1c8 0%, #f7e39c 100%);
+    border-color: #c89d3c;
+    color: #3b282e;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(200, 109, 129, 0.14);
+}
+
+/* Traditional / Simplified Toggle Pill (zh.html) */
+.zh-script-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem;
+    border-radius: 0.75rem;
+    background-color: var(--cute-cream);
+    border: 1.5px solid var(--cute-cream-border);
+}
+
+.zh-script-btn {
+    padding: 0.22rem 0.55rem;
+    border-radius: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(59, 40, 46, 0.65);
+    transition: all 0.18s ease;
+    cursor: pointer;
+}
+
+.zh-script-btn:hover {
+    color: var(--cute-cocoa);
+}
+
+.zh-script-btn.is-active {
+    background-color: var(--cute-pink);
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(200, 109, 129, 0.28);
+}
+
+/* ==========================================================================
+   Annotated Text Highlights (Tier & Severity)
+   ========================================================================== */
+.highlight-span {
+    transition: all 0.18s ease;
+    cursor: pointer;
+    border-radius: 0.35rem;
+    padding: 0.08rem 0.28rem;
+    margin: 0 -0.06rem;
+}
+
+.highlight-high {
+    background-color: #f9dfe4;
+    border-bottom: 2px solid #c86d81;
+    color: #4a232c;
+}
+
+.highlight-high:hover,
+.highlight-high.active-span {
+    background-color: #f3cbd3;
+    box-shadow: 0 0 0 2px #c86d81;
+}
+
+.highlight-medium {
+    background-color: #fcf1c8;
+    border-bottom: 2px solid #d49e3d;
+    color: #4d3812;
+}
+
+.highlight-medium:hover,
+.highlight-medium.active-span {
+    background-color: #f8e4a0;
+    box-shadow: 0 0 0 2px #d49e3d;
+}
+
+.highlight-low {
+    background-color: #efe9fa;
+    border-bottom: 2px solid #8c6bb1;
+    color: #3c2b52;
+}
+
+.highlight-low:hover,
+.highlight-low.active-span {
+    background-color: #e2d6f5;
+    box-shadow: 0 0 0 2px #8c6bb1;
+}
+
+/* Layer 2 Flow / Structure Highlight (Soft Sky-Teal Accent) */
+.highlight-flow {
+    background-color: #e6f4f7;
+    border-bottom: 2px dashed #3e8ca3;
+    color: #1f4854;
+}
+
+.highlight-flow:hover,
+.highlight-flow.active-span {
+    background-color: #d2ebf1;
+    box-shadow: 0 0 0 2px #3e8ca3;
+}
+
+/* Subtle Pulse when Tier 3 Focuses Raw Textarea */
+@keyframes textarea-focus-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(200, 109, 129, 0.45); }
+    70% { box-shadow: 0 0 0 8px rgba(200, 109, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(200, 109, 129, 0); }
+}
+
+.editor-focus-pulse {
+    animation: textarea-focus-pulse 0.85s ease-out;
+}
+
+/* ==========================================================================
+   Collapsible 5-Pillar Breakdown & Hover Tooltips
+   ========================================================================== */
+.pillar-accordion-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.75rem;
+    background-color: #fdf7f8;
+    border: 1px solid var(--cute-blush-border);
+    color: var(--cute-cocoa);
+    font-size: 0.72rem;
+    font-weight: 700;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+    cursor: pointer;
+}
+
+.pillar-accordion-btn:hover {
+    background-color: var(--cute-blush);
+    border-color: var(--cute-pink);
+}
+
+.pillar-chevron {
+    transition: transform 0.22s ease;
+}
+
+.pillar-accordion-btn[aria-expanded="true"] .pillar-chevron {
+    transform: rotate(180deg);
+}
+
+/* Pure CSS Hover Tooltip for Hidden Math Details */
+.pillar-row {
+    position: relative;
+    padding: 0.35rem 0.45rem;
+    border-radius: 0.6rem;
+    transition: background-color 0.15s ease;
+    cursor: help;
+}
+
+.pillar-row:hover {
+    background-color: #fff8f9;
+}
+
+.pillar-row[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 6px);
+    transform: translateX(-50%) translateY(4px);
+    background-color: #3b282e;
+    color: #fdf9eb;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    line-height: 1.35;
+    padding: 0.38rem 0.62rem;
+    border-radius: 0.55rem;
+    white-space: nowrap;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 6px 16px rgba(59, 40, 46, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+    z-index: 50;
+}
+
+.pillar-row[data-tooltip]::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 1px);
+    transform: translateX(-50%);
+    border-width: 5px 5px 0 5px;
+    border-style: solid;
+    border-color: #3b282e transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.16s ease, visibility 0.16s ease;
+    z-index: 50;
+}
+
+.pillar-row[data-tooltip]:hover::after,
+.pillar-row[data-tooltip]:focus-within::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.pillar-row[data-tooltip]:hover::before,
+.pillar-row[data-tooltip]:focus-within::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   Sample Loader Bar Below Editor
+   ========================================================================== */
+.sample-loader-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    padding-top: 0.65rem;
+    margin-top: 0.65rem;
+    border-top: 1px dashed var(--cute-blush-border);
+}
+
+.sample-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 0.75rem;
+    background-color: #ffffff;
+    border: 1px solid var(--cute-blush-border);
+    color: var(--cute-cocoa);
+    font-size: 0.73rem;
+    font-weight: 700;
+    transition: all 0.16s ease;
+    cursor: pointer;
+}
+
+.sample-pill-btn:hover {
+    background-color: var(--cute-cream);
+    border-color: var(--cute-pink);
+    color: var(--cute-cocoa);
+}
+
+/* ==========================================================================
+   Unified Problem Inspector Tier Badges
+   ========================================================================== */
+.tier-badge-1 {
+    background-color: #f9dfe4;
+    color: #6e2d3b;
+    border: 1px solid #e3b8c1;
+}
+
+.tier-badge-2 {
+    background-color: #e6f4f7;
+    color: #1f5463;
+    border: 1px solid #b5dce6;
+}
+
+.tier-badge-3 {
+    background-color: #fcf1c8;
+    color: #6b4e16;
+    border: 1px solid #ebd68f;
+}
